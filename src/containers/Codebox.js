@@ -7,6 +7,8 @@ import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/edit/matchbrackets'
+import 'codemirror/theme/monokai.css'
+import 'codemirror/lib/codemirror.css'
 
 class Codebox extends Component {
     componentDidMount() {

@@ -18,7 +18,6 @@ import rootReducer from './reducers'
 export const store = createStore(rootReducer, applyMiddleware(thunk, createLogger()))
 
 ReactDOM.render(
-	//
 	<Provider store = {store}>
 		<Router history={hashHistory} routes={routes} />
 	</Provider>,
