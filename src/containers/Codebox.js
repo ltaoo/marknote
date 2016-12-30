@@ -24,7 +24,9 @@ class Codebox extends Component {
             // value: "// open a javascript file..",
             lineNumbers: true,
             styleActiveLine: true,
-            matchBrackets: true
+            matchBrackets: true,
+            mode: 'markdown',
+            lineWrapping: true
         })
         // 监听输入事件
         this.doc.on('change', (target, source) => {
@@ -49,7 +51,7 @@ class Codebox extends Component {
   	render() {
   		const {state} = this.props
 	    return (
-	      	<div className="codebox"></div>
+	      	<div className="editormd"></div>
 	    )
   	}
 }
