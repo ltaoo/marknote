@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import marked from 'marked'
 
+import '../static/styles/Markdown.css'
+
 class Markdown extends Component {
 	constructor(props) {
 		super(props)

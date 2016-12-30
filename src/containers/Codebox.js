@@ -7,10 +7,12 @@ import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/edit/matchbrackets'
-import 'codemirror/theme/monokai.css'
 import 'codemirror/lib/codemirror.css'
+// 编辑器主题
+// import 'codemirror/theme/icecoder.css'
 
 import {input} from '../actions/index'
+import '../static/styles/Codebox.css'
 
 class Codebox extends Component {
     componentDidMount() {

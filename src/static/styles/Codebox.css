@@ -1,0 +1,12 @@
+.codebox {
+	width: 50%;
+	height: 100%;
+	margin-right: 10px;
+	font-size: 16px;
+
+	border-right: 1px solid #eee;
+}
+
+.CodeMirror {
+	height: 100%;
+}
