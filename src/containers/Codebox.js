@@ -11,27 +11,13 @@ import 'codemirror/lib/codemirror.css'
 // 编辑器主题
 // import 'codemirror/theme/icecoder.css'
 
-import {input, scroll} from '../actions/index'
+import {input, startScroll, editorScroll} from '../actions/index'
 import '../static/styles/Codebox.css'
-
-const mouseOrTouch = function(mouseEventType, touchEventType) {
-    mouseEventType = mouseEventType || "click";
-    touchEventType = touchEventType || "touchend";
-    
-    var eventType  = mouseEventType;
-
-    try {
-        document.createEvent("TouchEvent");
-        eventType = touchEventType;
-    } catch(e) {}
-
-    return eventType;
-}
 
 class Codebox extends Component {
 
     componentDidMount() {
-        const {dispatch} = this.props
+        const {dispatch, scroll} = this.props
         const code = ReactDOM.findDOMNode(this)
 
         this.doc = CodeMirror(code, {
@@ -47,39 +33,41 @@ class Codebox extends Component {
         this.doc.on('change', (target, source) => {
             dispatch(input(this.doc.getValue()))
         })
-
-        // 监听滚动事件
-        // code.bind(mouseOrTouch("scroll", "touchmove"), function(event) {
-        //     console.log(event)
-        // })
-        // console.log(Window)
         // 需要监听滚动条的位置
-        const scroller = document.querySelector('.CodeMirror-scroll')
+        this.scroller = document.querySelector('.CodeMirror-scroll')
         // console.dir(scroller)
-        scroller.onscroll = function(event) {
-            // console.log(event)
-            var scrollTop = scroller.scrollTop
-            // console.log(scrollTop)
-            dispatch(scroll(scrollTop))
+        this.scroller.onscroll = () => {
+            if(scroll.current === 'editor') {
+                var scrollTop = this.scroller.scrollTop
+                // 当编辑区滚动时，要修改渲染区的 scrollTop
+                dispatch(editorScroll(scrollTop))
+            }
         }
     }
 
-    _onWheel(event) {
-        // 获取到滚动值，100 或者 -100
-        // console.log(event.deltaY)
+    _onWheel() {
+        // 当滚动的时候，就锁定另一个
+        const {dispatch, scroll} = this.props
+        if(scroll.current === 'editor') {
+            return;
+        }
+        dispatch(startScroll('editor'))
     }
 
   	render() {
-  		const {state} = this.props
+  		const {scroll} = this.props
+        // !!this.scroller && (this.scroller.scrollTop = scroll.editorTop)
 	    return (
-	      	<div className="editor"
+	      	<div 
+                className="editor"
                 onWheel = {this._onWheel.bind(this)}
             ></div>
 	    )
   	}
 }
 export default connect((state)=> {
+    const {scroll} = state
 	return {
-		state
+        scroll
 	}
 })(Codebox)

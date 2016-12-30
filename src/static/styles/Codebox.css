@@ -1,5 +1,5 @@
 .editor {
-	width: 50%;
+	width: calc(50% - 11px);
 	height: 100%;
 	margin-right: 10px;
 	font-size: 16px;

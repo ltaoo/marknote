@@ -1,5 +1,10 @@
-export const INPUT = 'input'
-export const SCROLL = 'scroll'
+export const INPUT = 'INPUT'
+export const EDITOR_SCROLL = 'EDITOR_SCROLL'
+export const PREVIEW_SCROLL = 'PREVIEW_SCROLL'
+
+export const START_SCROLL = 'START_SCROLL'
+export const EDITOR_START_SCROLL = 'EDITOR_START_SCROLL'
+export const PREVIEW_START_SCROLL = 'PREVIEW_START_SCROLL'
 
 export function input(value) {
 	return {
@@ -7,10 +12,24 @@ export function input(value) {
 		value
 	}
 }
-
-export function scroll(value) {
+// 编辑区域滚动
+export function editorScroll(value) {
 	return {
-		type: SCROLL,
+		type: EDITOR_SCROLL,
+		value
+	}
+}
+// 渲染区域滚动
+export function previewScroll(value) {
+	return {
+		type: PREVIEW_SCROLL,
+		value
+	}
+}
+
+export function startScroll(value) {
+	return {
+		type: START_SCROLL,
 		value
 	}
 }
