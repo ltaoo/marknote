@@ -11,12 +11,26 @@ import 'codemirror/lib/codemirror.css'
 // 编辑器主题
 // import 'codemirror/theme/icecoder.css'
 
-import {input} from '../actions/index'
+import {input, scroll} from '../actions/index'
 import '../static/styles/Codebox.css'
 
+const mouseOrTouch = function(mouseEventType, touchEventType) {
+    mouseEventType = mouseEventType || "click";
+    touchEventType = touchEventType || "touchend";
+    
+    var eventType  = mouseEventType;
+
+    try {
+        document.createEvent("TouchEvent");
+        eventType = touchEventType;
+    } catch(e) {}
+
+    return eventType;
+}
+
 class Codebox extends Component {
+
     componentDidMount() {
-        // console.log(this.props)
         const {dispatch} = this.props
         const code = ReactDOM.findDOMNode(this)
 
@@ -26,32 +40,41 @@ class Codebox extends Component {
             styleActiveLine: true,
             matchBrackets: true,
             mode: 'markdown',
+            // 自动换行
             lineWrapping: true
         })
         // 监听输入事件
         this.doc.on('change', (target, source) => {
             dispatch(input(this.doc.getValue()))
-            // console.log(source)
-            // if(source.origin === '+input') {
-            //     // 如果是输入，就从 Input 中读取
-            //     if(source.text.length === 2) {
-            //         // 换行
-            //         dispatch(input('\n'))
-            //     } else {
-            //         dispatch(input(source.text[0]))
-            //     }
-            // } else {
-            //     // 删除就从 removed 读取
-            //     dispatch()
-            // }
         })
 
+        // 监听滚动事件
+        // code.bind(mouseOrTouch("scroll", "touchmove"), function(event) {
+        //     console.log(event)
+        // })
+        // console.log(Window)
+        // 需要监听滚动条的位置
+        const scroller = document.querySelector('.CodeMirror-scroll')
+        // console.dir(scroller)
+        scroller.onscroll = function(event) {
+            // console.log(event)
+            var scrollTop = scroller.scrollTop
+            // console.log(scrollTop)
+            dispatch(scroll(scrollTop))
+        }
+    }
+
+    _onWheel(event) {
+        // 获取到滚动值，100 或者 -100
+        // console.log(event.deltaY)
     }
 
   	render() {
   		const {state} = this.props
 	    return (
-	      	<div className="editormd"></div>
+	      	<div className="editor"
+                onWheel = {this._onWheel.bind(this)}
+            ></div>
 	    )
   	}
 }

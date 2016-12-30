@@ -1,5 +1,5 @@
 export const INPUT = 'input'
-export const REMOVE = 'remove'
+export const SCROLL = 'scroll'
 
 export function input(value) {
 	return {
@@ -8,9 +8,9 @@ export function input(value) {
 	}
 }
 
-export function remove(value) {
+export function scroll(value) {
 	return {
-		type: REMOVE,
+		type: SCROLL,
 		value
 	}
 }

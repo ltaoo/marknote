@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import marked from 'marked'
 
@@ -9,14 +10,24 @@ class Markdown extends Component {
 		super(props)
 	}
 
+	componentDidMount() {
+		// this.preview = ReactDOM.findDOMNode(this)
+		this.preview = ReactDOM.findDOMNode(this)
+		console.dir(this.preview)
+	}
+
 	render() {
+		const {scroll} = this.props
 		const source = this.props.input.source
 		// console.log(source)
-		const html = marked(source)
+		const html = `<div class="markdown-body">${marked(source)}</div>`
 		// console.log(html)
+		// 改变滚动条位置
+		// const scroller = document.querySelector('.CodeMirror-scroll')
+		!!this.preview && (this.preview.scrollTop = scroll.top)
 		return (
 			<div
-				className = "markdown-body"
+				className = "preview"
 				dangerouslySetInnerHTML = {{__html: html}}
 			></div>
 		)
@@ -24,7 +35,9 @@ class Markdown extends Component {
 }
 
 export default connect((state)=> {
+	const {input, scroll} = state;
 	return {
-		input: state.input
+		input,
+		scroll
 	}
 })(Markdown)
