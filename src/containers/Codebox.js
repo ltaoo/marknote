@@ -10,27 +10,40 @@ import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/theme/monokai.css'
 import 'codemirror/lib/codemirror.css'
 
+import {input} from '../actions/index'
+
 class Codebox extends Component {
     componentDidMount() {
+        // console.log(this.props)
+        const {dispatch} = this.props
         const code = ReactDOM.findDOMNode(this)
 
         this.doc = CodeMirror(code, {
-            value: "// open a javascript file..",
+            // value: "// open a javascript file..",
             lineNumbers: true,
             styleActiveLine: true,
-            matchBrackets: true,
-            mode: "javascript"
+            matchBrackets: true
+        })
+        // 监听输入事件
+        this.doc.on('change', (target, source) => {
+            dispatch(input(this.doc.getValue()))
+            // console.log(source)
+            // if(source.origin === '+input') {
+            //     // 如果是输入，就从 Input 中读取
+            //     if(source.text.length === 2) {
+            //         // 换行
+            //         dispatch(input('\n'))
+            //     } else {
+            //         dispatch(input(source.text[0]))
+            //     }
+            // } else {
+            //     // 删除就从 removed 读取
+            //     dispatch()
+            // }
         })
 
-        // this.doc.change = (target, source) => {
-        //     console.log(target, source)
-        // }
-
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        // if(nextProps)
-    }
   	render() {
   		const {state} = this.props
 	    return (

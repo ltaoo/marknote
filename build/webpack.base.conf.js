@@ -12,6 +12,11 @@ module.exports = {
         publicPath: '/',
         filename: 'bundle.js'
     },
+    resolve: {
+        alias: {
+            // 'markdown-it': path.join(__dirname, '../node_modules/markdown-it/dist/markdown-it.min.js')
+        }
+    },
     module: {
         loaders: [
             {

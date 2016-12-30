@@ -1,20 +1,28 @@
 import React, {Component} from 'react'
-import MarkdownIt from 'markdown-it'
+import {connect} from 'react-redux'
+import marked from 'marked'
 
-export default class Markdown extends Component {
+class Markdown extends Component {
 	constructor(props) {
 		super(props)
 	}
 
 	render() {
-		const source = this.props
-		const md = new MarkdownIt()
-		const html = md.render(source)
+		const source = this.props.input.source
+		// console.log(source)
+		const html = marked(source)
+		// console.log(html)
 		return (
 			<div
-				className = "output"
+				className = "markdown-body"
 				dangerouslySetInnerHTML = {{__html: html}}
 			></div>
 		)
 	}
 }
+
+export default connect((state)=> {
+	return {
+		input: state.input
+	}
+})(Markdown)
