@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack build/webpack.prod.conf.js",
-    "dev": "NODE_ENV=development node build/index.js",
+    "dev": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -32,6 +32,7 @@
   "dependencies": {
     "codemirror": "^5.22.0",
     "jquery": "^3.1.1",
+    "markdown-it": "^8.2.2",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.6",

@@ -12,22 +12,14 @@ module.exports = {
         publicPath: '/',
         filename: 'bundle.js'
     },
-    resolve: {
-        alias: {
-            'react': path.join(nodeModulesPath, '/react/dist/react.js'),
-            'react-dom': path.join(nodeModulesPath, '/react-dom/dist/react-dom.js')
-        }
-    },
     module: {
         loaders: [
             {
                 test: /\.js?$/, 
+                exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
                 query: {
-                    presets: [
-                        require.resolve('babel-preset-es2015'),
-                        require.resolve('babel-preset-react')
-                    ],
+                    presets: ['es2015', 'react'],
                     cacheDirectory: true
                 }   
             },

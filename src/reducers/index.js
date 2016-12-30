@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux'
 
-import book from './book'
-import music from './music'
+import input from './input'
 
 const index = combineReducers({
-	book,
-	music
+	input
 })
 
 export default index

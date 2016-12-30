@@ -22,7 +22,10 @@ class Codebox extends Component {
             mode: "javascript"
         })
 
-        this.doc.setValue('hello world')
+        // this.doc.change = (target, source) => {
+        //     console.log(target, source)
+        // }
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -35,8 +38,6 @@ class Codebox extends Component {
 	    )
   	}
 }
-// connect 函数接收一个函数作为参数，决定在这个组件可以获取到哪些数据
-// 首先要了解， state 是一棵很大的状态树，也就是我们reducer函数中传入的 state
 export default connect((state)=> {
 	return {
 		state
