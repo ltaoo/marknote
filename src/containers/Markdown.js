@@ -22,28 +22,28 @@ class Markdown extends Component {
 	_onScroll() {
 		const {dispatch, scroll} = this.props
 		// 要区分是主动滚动还是被动滚动
-		if(scroll.current === 'preview') {
-			dispatch(previewScroll(this.preview.scrollTop))
-		}
+		// if(scroll.current === 'preview') {
+		// }
+		dispatch(previewScroll(this.preview.scrollTop))
 	}
 
 	_onWheel() {
 		// 当滚动的时候，就锁定另一个
-		const {dispatch, scroll} = this.props
-		if(scroll.current === 'preview') {
+		const {dispatch, common} = this.props
+		if(common.current === 'preview') {
 			return;
 		}
 		dispatch(startScroll('preview'))
 	}
 
 	render() {
-		const {previewScroll} = this.props
+		const {editorScroll} = this.props
 		const source = this.props.input.source
 		// console.log(source)
 		const html = `<div class="markdown-body">${marked(source)}</div>`
 		// console.log(html)
 		// 改变滚动条位置
-		!!this.preview && (this.preview.scrollTop = previewScroll.previewTop)
+		!!this.preview && (this.preview.scrollTop = editorScroll.previewTop)
 		return (
 			<div
 				className = "preview"
@@ -55,9 +55,10 @@ class Markdown extends Component {
 }
 
 export default connect((state)=> {
-	const {input, previewScroll} = state;
+	const {input, editorScroll, common} = state;
 	return {
 		input,
-		previewScroll
+		editorScroll,
+		common
 	}
 })(Markdown)

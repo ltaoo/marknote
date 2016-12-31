@@ -37,26 +37,26 @@ class Codebox extends Component {
         this.scroller = document.querySelector('.CodeMirror-scroll')
         // console.dir(scroller)
         this.scroller.onscroll = () => {
-            if(scroll.current === 'editor') {
-                var scrollTop = this.scroller.scrollTop
-                // 当编辑区滚动时，要修改渲染区的 scrollTop
-                dispatch(editorScroll(scrollTop))
-            }
+            // if(scroll.current === 'editor') {
+            // }
+            var scrollTop = this.scroller.scrollTop
+            // 当编辑区滚动时，要修改渲染区的 scrollTop
+            dispatch(editorScroll(scrollTop))
         }
     }
 
     _onWheel() {
         // 当滚动的时候，就锁定另一个
-        const {dispatch, scroll} = this.props
-        if(scroll.current === 'editor') {
+        const {dispatch, common} = this.props
+        if(common.current === 'editor') {
             return;
         }
         dispatch(startScroll('editor'))
     }
 
   	render() {
-  		const {scroll} = this.props
-        // !!this.scroller && (this.scroller.scrollTop = scroll.editorTop)
+  		const {previewScroll} = this.props
+        !!this.scroller && (this.scroller.scrollTop = previewScroll.editorTop)
 	    return (
 	      	<div 
                 className="editor"
@@ -66,8 +66,9 @@ class Codebox extends Component {
   	}
 }
 export default connect((state)=> {
-    const {scroll} = state
+    const {previewScroll, common} = state
 	return {
-        scroll
+        previewScroll,
+        common
 	}
 })(Codebox)
