@@ -1,0 +1,7 @@
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}

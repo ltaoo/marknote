@@ -20,11 +20,11 @@ class Markdown extends Component {
 	}
 
 	_onScroll() {
-		const {dispatch, scroll} = this.props
+		const {dispatch, common} = this.props
 		// 要区分是主动滚动还是被动滚动
-		// if(scroll.current === 'preview') {
-		// }
-		dispatch(previewScroll(this.preview.scrollTop))
+		if(common.current === 'preview') {
+			dispatch(previewScroll(this.preview.scrollTop))
+		}
 	}
 
 	_onWheel() {

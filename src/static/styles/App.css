@@ -1,6 +1,12 @@
 .main {
 	display: flex;
 	flex: 1;
-	flex-direction: row;
+    flex-direction: column;
 	height: 100%;
+}
+
+.markdown {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
 }

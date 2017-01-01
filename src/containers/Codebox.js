@@ -17,7 +17,7 @@ import '../static/styles/Codebox.css'
 class Codebox extends Component {
 
     componentDidMount() {
-        const {dispatch, scroll} = this.props
+        const {dispatch, common} = this.props
         const code = ReactDOM.findDOMNode(this)
 
         this.doc = CodeMirror(code, {
@@ -37,11 +37,11 @@ class Codebox extends Component {
         this.scroller = document.querySelector('.CodeMirror-scroll')
         // console.dir(scroller)
         this.scroller.onscroll = () => {
-            // if(scroll.current === 'editor') {
-            // }
-            var scrollTop = this.scroller.scrollTop
-            // 当编辑区滚动时，要修改渲染区的 scrollTop
-            dispatch(editorScroll(scrollTop))
+            if(common.current === 'editor') {
+                var scrollTop = this.scroller.scrollTop
+                // 当编辑区滚动时，要修改渲染区的 scrollTop
+                dispatch(editorScroll(scrollTop))
+            }
         }
     }
 
@@ -55,6 +55,7 @@ class Codebox extends Component {
     }
 
   	render() {
+        console.log('hello')
   		const {previewScroll} = this.props
         !!this.scroller && (this.scroller.scrollTop = previewScroll.editorTop)
 	    return (
