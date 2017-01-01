@@ -19,6 +19,7 @@ class Codebox extends Component {
     componentDidMount() {
         const {dispatch, common} = this.props
         const code = ReactDOM.findDOMNode(this)
+        // const code = this.refs.editor
 
         this.doc = CodeMirror(code, {
             // value: "// open a javascript file..",
@@ -55,11 +56,11 @@ class Codebox extends Component {
     }
 
   	render() {
-        console.log('hello')
   		const {previewScroll} = this.props
         !!this.scroller && (this.scroller.scrollTop = previewScroll.editorTop)
 	    return (
-	      	<div 
+            <div 
+                ref = "editor"
                 className="editor"
                 onWheel = {this._onWheel.bind(this)}
             ></div>

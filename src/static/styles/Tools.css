@@ -1,0 +1,18 @@
+.tools {
+    position: absolute;
+    right: calc(50% + 50px);
+    bottom: 50px;
+    z-index: 999;
+}
+
+
+.tools__newfile {
+    width: 50px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+    background-color: #fff;
+}

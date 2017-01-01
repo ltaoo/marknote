@@ -8,6 +8,12 @@ export default class Toolbar extends Component {
     render() {
         return (
             <div className = "toolbar">
+                <Icon 
+                    name="bars" 
+                    onClick = {() => {
+                        alert('hello')
+                    }}
+                />
                 <Icon name="undo" />
                 <Icon name="repeat" />
                 <Icon name="bold" />
@@ -33,10 +39,10 @@ export default class Toolbar extends Component {
                 <Icon name="code-block" />
                 <Icon name="table" />
                 <Icon name="datetime" />
-                <Icon name="watch" />
+                <Icon name="eye" />
                 <Icon name="preview" />
-                <Icon name="fullscreen" />
-                <Icon name="clear" />
+                <Icon name="tv" />
+                <Icon name="eraser" />
                 <Icon name="search" />
             </div>
         )
