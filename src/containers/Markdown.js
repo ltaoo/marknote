@@ -43,7 +43,13 @@ class Markdown extends Component {
 		const html = `<div class="markdown-body">${marked(source)}</div>`
 		// console.log(html)
 		// 改变滚动条位置
-		!!this.preview && (this.preview.scrollTop = editorScroll.previewTop)
+		// const clientHeight = this.preview.clientHeight
+  		// const scrollTop = this.preview.scrollTop
+        if(this.preview) {
+	        const scrollHeight = this.preview.scrollHeight
+        	this.preview.scrollTop = editorScroll.previewTop*scrollHeight
+        }
+		// !!this.preview && (this.preview.scrollTop = editorScroll.previewTop*scrollHeight)
 		return (
 			<div
 				className = "preview"

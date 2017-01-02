@@ -6,13 +6,12 @@ import '../static/styles/Toolbar.css'
 
 export default class Toolbar extends Component {
     render() {
+        const {menuClick} = this.props
         return (
             <div className = "toolbar">
                 <Icon 
                     name="bars" 
-                    onClick = {() => {
-                        alert('hello')
-                    }}
+                    onClick = {menuClick}
                 />
                 <Icon name="undo" />
                 <Icon name="repeat" />

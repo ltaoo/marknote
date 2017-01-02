@@ -39,9 +39,16 @@ class Codebox extends Component {
         // console.dir(scroller)
         this.scroller.onscroll = () => {
             if(common.current === 'editor') {
-                var scrollTop = this.scroller.scrollTop
+                const clientHeight = this.scroller.clientHeight
+                const scrollTop = this.scroller.scrollTop
+                const scrollHeight = this.scroller.scrollHeight
+                // console.log(clientHeight, scrollTop, scrollHeight)
+                // clientHeight + scrollTop === scrollHeight，客户端高度加上滚动的距离等于内容高度
                 // 当编辑区滚动时，要修改渲染区的 scrollTop
-                dispatch(editorScroll(scrollTop))
+                const percentage = (scrollTop)/scrollHeight
+                // console.log(percentage)
+                // dispatch(editorScroll(scrollTop))
+                dispatch(editorScroll(percentage))
             }
         }
     }
