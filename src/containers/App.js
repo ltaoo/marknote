@@ -32,8 +32,8 @@ export default class App extends Component {
         }
         if(this.state.show) {
             // 如果展示侧边栏
-            mainStyle.transform = `translateX(400px)`
-            mainStyle.WebkitTransform = `translateX(400px)`
+            mainStyle.transform = `translateX(380px)`
+            mainStyle.WebkitTransform = `translateX(380px)`
             mainStyle.overflow = 'hidden'
         } else {
             mainStyle.transform = ''
@@ -43,11 +43,10 @@ export default class App extends Component {
 
 	    return (
 	      	<div className = "main">
-                <Tools />
                 <Sidebar
                     show = {this.state.show}
                     styles = {{sidebar: {
-                        width: '400px',
+                        width: '380px',
                         backgroundColor: '#fff'
                     }}}
                     onSetOpen = {() => {
@@ -57,7 +56,23 @@ export default class App extends Component {
                     }}
                 >
                     <div>
-                        <p>hello</p>
+                        <p
+                            onClick = {() => {
+                                // 点击生成 md 文件
+                                let blobObj = new Blob(['hello world'])
+                                let objectURL = URL.createObjectURL(blobObj)
+                                this.setState({
+                                    url: objectURL
+                                })
+                            }}
+                        >hello</p>
+                        <a href={this.state.url} download = "hello.md">click it</a>
+                        <button
+                            onClick = {() => {
+                                console.log(document)
+                                document.execCommand('SaveAs')
+                            }}
+                        >click it</button>
                     </div>
                 </Sidebar>
                 <div className = "main" style = {mainStyle}>

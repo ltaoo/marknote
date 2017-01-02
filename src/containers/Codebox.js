@@ -20,7 +20,6 @@ class Codebox extends Component {
         const {dispatch, common} = this.props
         const code = ReactDOM.findDOMNode(this)
         // const code = this.refs.editor
-
         this.doc = CodeMirror(code, {
             // value: "// open a javascript file..",
             lineNumbers: true,
@@ -30,10 +29,18 @@ class Codebox extends Component {
             // 自动换行
             lineWrapping: true
         })
+
+        // 如果缓存中存在文本，就赋值
+        if(localStorage.getItem('note')) {
+            this.doc.setValue(localStorage.getItem('note'))
+            dispatch(input(this.doc.getValue()))
+        }
+
         // 监听输入事件
         this.doc.on('change', (target, source) => {
             dispatch(input(this.doc.getValue()))
         })
+
         // 需要监听滚动条的位置
         this.scroller = document.querySelector('.CodeMirror-scroll')
         // console.dir(scroller)
@@ -50,6 +57,24 @@ class Codebox extends Component {
                 // dispatch(editorScroll(scrollTop))
                 dispatch(editorScroll(percentage))
             }
+        }
+
+        // 将内容保存至 localstorage
+        // 每隔 10s 就保存一次
+        this.timer = setInterval(() => {
+            this._saveToLocalStorage(this.doc.getValue())
+        }, 10000)
+    }
+
+    componentWillUnmount() {
+        this.timer && clearTimeout(this.timer)
+    }
+
+    _saveToLocalStorage(content) {
+        // 判断是否和缓存中的一致，如果一直就不保存？
+        const oldContent = localStorage.getItem('note')
+        if(content !== oldContent) {
+            localStorage.setItem('note', content)
         }
     }
 
