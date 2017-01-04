@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 
 import {remote} from 'electron'
+// 模态框
+import {Modal} from 'antd'
+import 'antd/lib/modal/style/css'
 
 import Toolbar from './Toolbar'
 import Codebox from './Codebox'
@@ -13,6 +16,11 @@ import Tools from './Tools'
 // 侧边栏
 import Sidebar from './Sidebar'
 
+// 全局
+import '../static/common.css'
+// 主题样式
+import '../static/themes/github-markdown.css'
+// 组件样式
 import '../static/styles/App.css'
 
 export default class App extends Component {
@@ -30,6 +38,9 @@ export default class App extends Component {
             // 弹出文件夹选择窗口
             // remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
             // 显示模态框
+            Modal.info({
+                content: 'hello'
+            })
         }
         console.log(notedir)
 
@@ -39,7 +50,7 @@ export default class App extends Component {
         //     console.log(res)
         // })
     }
-  	render() {
+    render() {
         // 根据 show 来处理样式
         let mainStyle = {
             transition: 'transform .3s ease-out',
@@ -56,8 +67,8 @@ export default class App extends Component {
             mainStyle.overflow = 'auto'
         }
 
-	    return (
-	      	<div className = "container">
+        return (
+            <div className = "container">
                 <Sidebar
                     show = {this.state.show}
                     styles = {{sidebar: {
@@ -73,7 +84,6 @@ export default class App extends Component {
                     <div>
                         <button
                             onClick = {() => {
-                                console.log(document)
                             }}
                         >click it</button>
                     </div>

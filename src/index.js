@@ -7,10 +7,6 @@ import {Provider} from 'react-redux'
 import createLogger from 'redux-logger'
 // thunk
 import thunk from 'redux-thunk'
-// 全局
-import './static/common.css'
-// 主题样式
-import './static/themes/github-markdown.css'
 // 路由配置
 import routes from './routes'
 // 暴露给所有子组件有 dispatch 的 store 对象

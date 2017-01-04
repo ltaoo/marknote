@@ -109,7 +109,7 @@ export default class Sidebar extends Component {
           {this.props.children}
         </div>
         <div 
-          className= "overlay"
+          className= "sidebar__overlay"
           style={overlayStyle}
           role="presentation"
           tabIndex="0"
