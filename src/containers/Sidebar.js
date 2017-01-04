@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import '../static/styles/Sidebar.css'
 // 定义默认样式
 const defaultStyles = {
   root: {
@@ -107,7 +108,7 @@ export default class Sidebar extends Component {
           {this.props.children}
         </div>
         <div 
-          className={this.props.overlayClassName}
+          className= "overlay"
           style={overlayStyle}
           role="presentation"
           tabIndex="0"

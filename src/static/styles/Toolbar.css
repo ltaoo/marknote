@@ -5,3 +5,7 @@
     padding: 15px;
     border-bottom: 1px solid #eee;
 }
+
+.fa {
+	-webkit-app-region: no-drag;
+}

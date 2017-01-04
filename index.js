@@ -5,7 +5,12 @@ let win
 
 function createWindow() {
     // 创建窗口并加载页面
-    win = new BrowserWindow({ width: 800, height: 600 })
+    win = new BrowserWindow({ 
+        // 隐藏框架，即顶部的任务栏
+        frame: false,
+        width: 800, 
+        height: 600 
+    })
     // win.loadURL(`file://${__dirname}/index.html`)
     win.loadURL(`http://127.0.0.1:8080/#/`)
 

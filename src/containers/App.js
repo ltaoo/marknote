@@ -19,10 +19,7 @@ export default class App extends Component {
             show: false
         }
     }
-    _sidebar() {
-        return (
-            <p> ok ? </p>
-        )
+    componentDidMount() {
     }
   	render() {
         // 根据 show 来处理样式
@@ -42,7 +39,7 @@ export default class App extends Component {
         }
 
 	    return (
-	      	<div className = "main">
+	      	<div className = "container">
                 <Sidebar
                     show = {this.state.show}
                     styles = {{sidebar: {
