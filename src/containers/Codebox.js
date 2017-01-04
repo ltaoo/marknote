@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import {connect} from 'react-redux'
+import {remote} from 'electron'
 
 import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript'
@@ -19,8 +20,13 @@ import '../static/styles/Codebox.css'
 
 // 事件
 import Event from '../utils/Event'
+// 数据
+import store from '../store'
 
 class Codebox extends Component {
+    constructor(props) {
+        super(props)
+    }
 
     componentDidMount() {
         const {dispatch, common} = this.props
@@ -116,6 +122,8 @@ class Codebox extends Component {
 	    )
   	}
 }
+
+
 export default connect((state)=> {
     const {previewScroll, common, notes} = state
 	return {
@@ -124,3 +132,33 @@ export default connect((state)=> {
         notes
 	}
 })(Codebox)
+
+function saveNote(){
+    let state = store.getState()
+    const {notes} = state
+    let content = notes.noteContent
+    let notePath = notes.currentNote
+    console.log(notePath)
+    //
+    try {
+        fs.writeFileSync(notePath, content, 'utf8')
+    }catch(err) {
+        console.log(err)
+    }
+}
+
+let template = [{
+    label: '文件',
+    submenu: [
+        {
+            label: '保存',
+            accelerator: 'CmdOrCtrl+S',
+            click: function (item, focusedWindow) {
+                saveNote()
+            }
+        }
+    ]
+}]
+
+let menu = remote.Menu.buildFromTemplate(template)
+remote.Menu.setApplicationMenu(menu)

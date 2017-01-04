@@ -84,8 +84,8 @@ class App extends Component {
         }
         if(this.state.show) {
             // 如果展示侧边栏
-            mainStyle.transform = `translateX(380px)`
-            mainStyle.WebkitTransform = `translateX(380px)`
+            mainStyle.transform = `translateX(300px)`
+            mainStyle.WebkitTransform = `translateX(300px)`
             mainStyle.overflow = 'hidden'
         } else {
             mainStyle.transform = ''
@@ -98,7 +98,7 @@ class App extends Component {
                 <Sidebar
                     show = {this.state.show}
                     styles = {{sidebar: {
-                        width: '380px',
+                        width: '300px',
                         backgroundColor: '#fff'
                     }}}
                     onSetOpen = {() => {

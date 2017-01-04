@@ -33,10 +33,17 @@ if(localStorage.getItem('note')) {
 	noteContent = localStorage.getItem('note')
 }
 
+// 笔记路径
+let currentNote = null;
+if(localStorage.getItem('currentNote')) {
+	currentNote = localStorage.getItem('currentNote')
+}
+
 const initialValue = {
 	notebooks,
 	notes: notesAry,
 	currentNotebook: notebooks[0],
+	currentNote,
 	noteContent
 }
 
@@ -56,11 +63,13 @@ const notes = (state = initialValue, action)=> {
 				notes: newNotes
 			})
 		// 选择笔记
-		// case types.CHOOSE_NOTE:
-		// 	let content = fs.readFileSync(path.join(NOTES_DIR, state.currentNotebook, action.value), 'utf8')
-		// 	return Object.assign({}, state, {
-		// 		noteContent: content
-		// 	})
+		case types.CHOOSE_NOTE:
+			// let content = fs.readFileSync(path.join(NOTES_DIR, state.currentNotebook, action.value), 'utf8')
+			let currentNote = path.join(NOTES_DIR, state.currentNotebook, action.value)
+			localStorage.setItem('currentNote', currentNote)
+			return Object.assign({}, state, {
+				currentNote
+			})
 		case types.INPUT:
 			return Object.assign({}, state, {
 				noteContent: action.value

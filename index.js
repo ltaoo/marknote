@@ -1,8 +1,7 @@
 const electron = require('electron')
-const { app } = electron
-const { BrowserWindow } = electron
-let win
+const { app, BrowserWindow, Menu } = electron
 
+let win
 
 function createWindow() {
     // 创建窗口并加载页面
