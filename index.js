@@ -9,7 +9,7 @@ function createWindow() {
     win = new BrowserWindow({ 
         // 隐藏框架，即顶部的任务栏
         // frame: false,
-        width: 800, 
+        width: 1200, 
         height: 600 
     })
     win.loadURL(`file://${__dirname}/index.html`)

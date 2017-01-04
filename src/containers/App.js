@@ -1,6 +1,7 @@
 import fs from 'fs'
 
 import React, { Component } from 'react' 
+import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 
 import {remote} from 'electron'
@@ -15,6 +16,9 @@ import Markdown from './Markdown'
 import Tools from './Tools'
 // 侧边栏
 import Sidebar from './Sidebar'
+import Notes from './Notes'
+// drop 组件
+import Drop from './Drop'
 
 // 全局
 import '../static/common.css'
@@ -23,7 +27,7 @@ import '../static/themes/github-markdown.css'
 // 组件样式
 import '../static/styles/App.css'
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props)
 
@@ -32,6 +36,7 @@ export default class App extends Component {
         }
     }
     componentDidMount() {
+        const {dispatch, notes} = this.props
         let notedir = localStorage.getItem('notedir')
         if(!notedir) {
             // 如果不存在
@@ -39,16 +44,33 @@ export default class App extends Component {
             // remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
             // 显示模态框
             Modal.info({
-                content: 'hello'
+                content: <Drop />
             })
         }
-        console.log(notedir)
 
-        // fs.readdir('D:/', (err, res) => {
-        //     if(err) throw err
+        // let box = ReactDOM.findDOMNode(this)
+        let box = document.querySelector('.container')
+        box.addEventListener("drop", function (e){ 
+            // console.log('拖动文件')
+            // 阻止默认的拖动打开事件
+            e.preventDefault()
+            // 当拖动的时候，样式可以再处理下，添加蒙版层
 
-        //     console.log(res)
-        // })
+            // 拿到文件对象
+            let fileList = e.dataTransfer.files;
+            if(fileList.length > 1){ 
+                alert('只能拖动一个文件')
+                return;
+            } 
+            localStorage.setItem('notedir', fileList[0].path)
+            notedir = fileList[0].path
+        })
+
+        fs.readdir(notedir, (err, res) => {
+            if(err) console.log(err)
+
+            console.log(res)
+        })
     }
     render() {
         // 根据 show 来处理样式
@@ -81,12 +103,7 @@ export default class App extends Component {
                         })
                     }}
                 >
-                    <div>
-                        <button
-                            onClick = {() => {
-                            }}
-                        >click it</button>
-                    </div>
+                    <Notes />
                 </Sidebar>
                 <div className = "main" style = {mainStyle}>
                     <Toolbar 
@@ -105,3 +122,4 @@ export default class App extends Component {
 	    )
   	}
 }
+export default App

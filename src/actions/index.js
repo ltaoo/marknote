@@ -33,3 +33,12 @@ export function startScroll(value) {
 		value
 	}
 }
+
+// 从指定目录读取笔记
+export const SCAN_NOTES = 'SCAN_NOTES'
+export function scanNotes(value) {
+	return {
+		type: SCAN_NOTES,
+		value
+	}
+}

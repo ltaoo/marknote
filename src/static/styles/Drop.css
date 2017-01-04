@@ -1,0 +1,6 @@
+.drop {
+	border: 1px dash #eee;
+	width: 100%;
+	line-height: 300px;
+	text-align: center;
+}

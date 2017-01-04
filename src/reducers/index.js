@@ -4,6 +4,7 @@ import input from './input'
 import editorScroll from './editorScroll'
 import previewScroll from './previewScroll'
 import common from './common'
+import notes from './notes'
 
 const index = combineReducers({
 	input,
@@ -12,7 +13,9 @@ const index = combineReducers({
     // 预览区域滚动
 	previewScroll,
     // 公共的一些状态
-    common
+    common,
+    // 笔记
+    notes
 })
 
 export default index
