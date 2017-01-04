@@ -1,3 +1,6 @@
+import fs from 'fs'
+import path from 'path'
+
 import React, { Component } from 'react' 
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
@@ -14,6 +17,9 @@ import 'codemirror/lib/codemirror.css'
 import {input, startScroll, editorScroll} from '../actions/index'
 import '../static/styles/Codebox.css'
 
+// 事件
+import Event from '../utils/Event'
+
 class Codebox extends Component {
 
     componentDidMount() {
@@ -29,6 +35,12 @@ class Codebox extends Component {
             // 自动换行
             lineWrapping: true
         })
+
+        // 默认内容
+        let localNote = localStorage.getItem('note')
+        if(localNote) {
+            this.doc.setValue(localNote)
+        }
 
         // 监听输入事件
         this.doc.on('change', (target, source) => {
@@ -58,6 +70,16 @@ class Codebox extends Component {
         this.timer = setInterval(() => {
             this._saveToLocalStorage(this.doc.getValue())
         }, 10000)
+
+
+        Event.on('chooseNote', (notebook, note) => {
+            let rootdir = localStorage.getItem('notedir')
+            if(rootdir) {
+                let content = fs.readFileSync(path.join(rootdir, notebook, note), 'utf8')
+                localStorage.setItem('note', content)
+                this.doc.setValue(content)
+            }
+        })    
     }
 
     componentWillUnmount() {

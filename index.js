@@ -8,7 +8,7 @@ function createWindow() {
     // 创建窗口并加载页面
     win = new BrowserWindow({ 
         // 隐藏框架，即顶部的任务栏
-        frame: false,
+        // frame: false,
         width: 1200, 
         height: 600 
     })

@@ -56,11 +56,11 @@ const notes = (state = initialValue, action)=> {
 				notes: newNotes
 			})
 		// 选择笔记
-		case types.CHOOSE_NOTE:
-			let content = fs.readFileSync(path.join(NOTES_DIR, state.currentNotebook, action.value), 'utf8')
-			return Object.assign({}, state, {
-				noteContent: content
-			})
+		// case types.CHOOSE_NOTE:
+		// 	let content = fs.readFileSync(path.join(NOTES_DIR, state.currentNotebook, action.value), 'utf8')
+		// 	return Object.assign({}, state, {
+		// 		noteContent: content
+		// 	})
 		case types.INPUT:
 			return Object.assign({}, state, {
 				noteContent: action.value

@@ -3,6 +3,7 @@ import fs from 'fs'
 import React, { Component } from 'react' 
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
+import {connect} from 'react-redux'
 
 import {remote} from 'electron'
 // 模态框
@@ -26,6 +27,7 @@ import '../static/common.css'
 import '../static/themes/github-markdown.css'
 // 组件样式
 import '../static/styles/App.css'
+
 
 class App extends Component {
     constructor(props) {
@@ -71,8 +73,10 @@ class App extends Component {
 
             console.log(res)
         })
+    
     }
     render() {
+        const {notes} = this.props
         // 根据 show 来处理样式
         let mainStyle = {
             transition: 'transform .3s ease-out',
@@ -122,4 +126,9 @@ class App extends Component {
 	    )
   	}
 }
-export default App
+export default connect((state) => {
+    const {notes} = state
+    return {
+        notes
+    }
+})(App)

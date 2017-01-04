@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Icon} from 'react-fa'
 
 import {chooseNotebook, chooseNote} from '../actions/index'
+import Event from '../utils/Event'
 
 import '../static/styles/Notes.css'
 
@@ -39,7 +40,9 @@ class Notes extends Component {
 					className = "notes__note" 
 					key = {index}
 					onClick = {() => {
+						// 点击笔记事件
 						dispatch(chooseNote(note))
+						Event.emit('chooseNote', currentNotebook, note)
 					}}
 				>
 					<Icon name="file-code-o" style = {{marginRight: '10px'}} />{note}
