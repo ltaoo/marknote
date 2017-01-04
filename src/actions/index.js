@@ -42,3 +42,21 @@ export function scanNotes(value) {
 		value
 	}
 }
+
+// 选择笔记本
+export const CHOOSE_NOTEBOOK = 'CHOOSE_NOTEBOOK'
+export function chooseNotebook(value) {
+	return {
+		type: CHOOSE_NOTEBOOK,
+		value
+	}
+}
+
+// 选择笔记
+export const CHOOSE_NOTE = 'CHOOSE_NOTE'
+export function chooseNote(value) {
+	return {
+		type: CHOOSE_NOTE,
+		value
+	}
+}

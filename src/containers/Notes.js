@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Icon} from 'react-fa'
+
+import {chooseNotebook, chooseNote} from '../actions/index'
 
 import '../static/styles/Notes.css'
 
@@ -9,16 +12,49 @@ class Notes extends Component {
 	}
 
 	render() {
-		const {notes} = this.props
-		let list = notes.notebooks.map((notebook, index) => {
+		const {dispatch, notebooks, notes, currentNotebook} = this.props
+		let notebooks_html = notebooks.map((notebook, index) => {
+			let cls = "notes__notebook"
+			if(notebook === currentNotebook) {
+				// 如果是
+				cls = "notes__notebook notes__notebook--active"
+			}
 			return (
-				<li className = "notes__notebook" key = {index}>{notebook}</li>
+				<li
+					className = {cls}
+					key = {index}
+					onClick = {(e) => {
+						// console.log(notebook)
+						dispatch(chooseNotebook(notebook))
+					}}
+				>
+					<Icon name="folder-o" style = {{marginRight: '10px'}} />{notebook}
+				</li>
+			)
+		})
+
+		let notes_html = notes.map((note, index) => {
+			return (
+				<li 
+					className = "notes__note" 
+					key = {index}
+					onClick = {() => {
+						dispatch(chooseNote(note))
+					}}
+				>
+					<Icon name="file-code-o" style = {{marginRight: '10px'}} />{note}
+				</li>
 			)
 		})
 		return (
-			<ul className = "notes">
-				{list}
-			</ul>
+			<div className = "notes">
+				<ul className = "notes__notebooks">
+					{notebooks_html}
+				</ul>
+				<ul className = "notes__notes">
+					{notes_html}
+				</ul>
+			</div>
 		)
 	}
 }
@@ -27,6 +63,8 @@ export default connect((state) => {
 	const {notes} = state
 
 	return {
-		notes
+		notebooks: notes.notebooks,
+		notes: notes.notes,
+		currentNotebook: notes.currentNotebook
 	}
 })(Notes)

@@ -38,7 +38,7 @@ class Markdown extends Component {
 
 	render() {
 		const {editorScroll} = this.props
-		const source = this.props.input.source
+		const source = this.props.notes.noteContent
 		// console.log(source)
 		const html = `<div class="markdown-body">${marked(source)}</div>`
 		// console.log(html)
@@ -61,9 +61,9 @@ class Markdown extends Component {
 }
 
 export default connect((state)=> {
-	const {input, editorScroll, common} = state;
+	const {notes, editorScroll, common} = state;
 	return {
-		input,
+		notes,
 		editorScroll,
 		common
 	}

@@ -30,12 +30,6 @@ class Codebox extends Component {
             lineWrapping: true
         })
 
-        // 如果缓存中存在文本，就赋值
-        if(localStorage.getItem('note')) {
-            this.doc.setValue(localStorage.getItem('note'))
-            dispatch(input(this.doc.getValue()))
-        }
-
         // 监听输入事件
         this.doc.on('change', (target, source) => {
             dispatch(input(this.doc.getValue()))
@@ -88,8 +82,9 @@ class Codebox extends Component {
     }
 
   	render() {
-  		const {previewScroll} = this.props
+  		const {previewScroll, notes} = this.props
         !!this.scroller && (this.scroller.scrollTop = previewScroll.editorTop)
+        //
 	    return (
             <div 
                 ref = "editor"
@@ -100,9 +95,10 @@ class Codebox extends Component {
   	}
 }
 export default connect((state)=> {
-    const {previewScroll, common} = state
+    const {previewScroll, common, notes} = state
 	return {
         previewScroll,
-        common
+        common,
+        notes
 	}
 })(Codebox)

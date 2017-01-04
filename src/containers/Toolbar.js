@@ -40,7 +40,7 @@ export default class Toolbar extends Component {
                 <Icon name="datetime" />
                 <Icon name="eye" />
                 <Icon name="preview" />
-                <Icon name="tv" />
+                <Icon name="desktop" />
                 <Icon name="eraser" />
                 <Icon name="search" />
             </div>

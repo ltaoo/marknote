@@ -1,7 +1,25 @@
 .notes {
-	padding: 10px;
 }
-
+.notes__notebooks {
+	height: 50%;
+}
 .notes__notebook {
-	margin-bottom: 10px;
+	padding-left: 10px;
+	line-height: 28px;
+	cursor: default;
+}
+.notes__notebook:hover {
+	background-color: #eee;
+}
+.notes__notebook--active {
+	background-color: #ccc;
+}
+.notes__notebook--active:hover {
+	background-color: #ccc;
+}
+.notes__note {
+	cursor: default;
+}
+.notes__note:hover {
+	background-color: #eee;
 }
