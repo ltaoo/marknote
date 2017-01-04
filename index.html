@@ -6,5 +6,13 @@
 </head>
 <body>
   	<div id="app"></div>
+  	<script>
+  		{
+  		  const script = document.createElement('script');
+  		  script.src = `http://localhost:8080/bundle.js`;
+  		  // script.src = `./bundle.js`;
+  		  document.write(script.outerHTML);
+  		}
+  	</script>
 </body>
 </html>

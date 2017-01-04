@@ -26,8 +26,9 @@ const defaultStyles = {
     right: 0,
     bottom: 0,
     opacity: 0,
-    transition: 'opacity .3s ease-out',
-    backgroundColor: 'rgba(0,0,0,.3)',
+    transition: '.3s ease-out',
+    WebkitTransition: '.3s ease-out',
+    backgroundColor: 'rgba(255, 255, 255, .7)',
   }
 }
 

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack build/webpack.prod.conf.js",
-    "dev": "node build/index.js",
+    "server": "node build/index.js",
+    "dev": "electron ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

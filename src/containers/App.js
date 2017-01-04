@@ -1,5 +1,9 @@
+import fs from 'fs'
+
 import React, { Component } from 'react' 
 import { Link } from 'react-router'
+
+import {remote} from 'electron'
 
 import Toolbar from './Toolbar'
 import Codebox from './Codebox'
@@ -20,6 +24,20 @@ export default class App extends Component {
         }
     }
     componentDidMount() {
+        let notedir = localStorage.getItem('notedir')
+        if(!notedir) {
+            // 如果不存在
+            // 弹出文件夹选择窗口
+            // remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+            // 显示模态框
+        }
+        console.log(notedir)
+
+        // fs.readdir('D:/', (err, res) => {
+        //     if(err) throw err
+
+        //     console.log(res)
+        // })
     }
   	render() {
         // 根据 show 来处理样式
@@ -53,21 +71,9 @@ export default class App extends Component {
                     }}
                 >
                     <div>
-                        <p
-                            onClick = {() => {
-                                // 点击生成 md 文件
-                                let blobObj = new Blob(['hello world'])
-                                let objectURL = URL.createObjectURL(blobObj)
-                                this.setState({
-                                    url: objectURL
-                                })
-                            }}
-                        >hello</p>
-                        <a href={this.state.url} download = "hello.md">click it</a>
                         <button
                             onClick = {() => {
                                 console.log(document)
-                                document.execCommand('SaveAs')
                             }}
                         >click it</button>
                     </div>

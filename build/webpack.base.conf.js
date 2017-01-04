@@ -8,7 +8,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         // 这个表示输出目录
-        path: '/',
+        path: '/dist',
         publicPath: '/',
         filename: 'bundle.js'
     },
@@ -34,7 +34,8 @@ module.exports = {
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+                // loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+                loader: 'url-loader'
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -44,10 +45,13 @@ module.exports = {
     },
     plugins: [
         // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        })
-    ]
+        // 由于在 electron 中直接使用 index.html 所以不需要插件进行处理
+        // new HtmlWebpackPlugin({
+        //     filename: 'index.html',
+        //     template: 'index.html',
+        //     inject: true
+        // })
+    ],
+
+    target: 'electron-renderer'
 };
