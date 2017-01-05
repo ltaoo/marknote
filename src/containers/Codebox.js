@@ -7,7 +7,8 @@ import { Link } from 'react-router'
 import {connect} from 'react-redux'
 // 渲染进程通信
 import {ipcRenderer} from 'electron'
-import {Modal} from 'antd'
+import {Modal, notification} from 'antd'
+import 'antd/lib/notification/style/css'
 
 import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript'
@@ -153,28 +154,7 @@ export default connect((state)=> {
 	}
 })(Codebox)
 
-function _saveNote(){
-    let state = store.getState()
-    const {notes} = state
-    let content = notes.noteContent
-    let notePath = notes.currentNote
-    // console.log(notes)
-    // 判断是否是有修改的保存
-    if(!notes.inputting) {
-        // 没有修改就忽略这一保存动作
-        return
-    }
-    //
-    try {
-        fs.writeFileSync(notePath, content, 'utf8')
-        store.dispatch(saveNote())
-        // 应该有个通知就好了
-        console.log('保存成功')
-    }catch(err) {
-        console.log(err)
-    }
-}
-
+// 新增笔记
 function _addNewFile() {
     let state = store.getState()
     const {notes} = state
@@ -222,6 +202,39 @@ function _addNewFile() {
         return
     }
 
+}
+
+// 保存笔记
+function _saveNote(){
+    let state = store.getState()
+    const {notes} = state
+    const {NOTES_DIR, currentNotebook, currentNote, noteContent, inputting} = notes
+    // console.log(notes)
+    // 判断是否是有修改的保存
+    if(!inputting) {
+        // 没有修改就忽略这一保存动作
+        return
+    }
+    // 判断是否是新建笔记
+    // console.log(currentNote)
+    let newNotePath = currentNote
+    if(!currentNote) {
+        // 如果没有笔记的物理路径，就认为是新建笔记保存，首先要获取到笔记名，拿 h1 标签
+        let title = document.querySelector('h1').innerHTML + '.md'
+        newNotePath = path.join(NOTES_DIR, currentNotebook, title)
+    }
+    try {
+        fs.writeFileSync(newNotePath, noteContent, 'utf8')
+        notification.success({
+            message: '成功',
+            description: '笔记保存成功'
+        })
+    }catch(err) {
+        notification.error({
+            message: '失败',
+            description: JSON.stringify(err)
+        })
+    }
 }
 
 ipcRenderer.on('new-note', (event, message) => {

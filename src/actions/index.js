@@ -75,6 +75,7 @@ export const ADD_NOTE = 'ADD_NOTE'
 export function addNewNote() {
 	// 添加笔记前，清空缓存
 	localStorage.setItem('note', '')
+	localStorage.setItem('currentNote', '')
 	return {
 		type: ADD_NOTE
 	}

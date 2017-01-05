@@ -40,10 +40,17 @@ if(localStorage.getItem('currentNote')) {
 }
 
 const initialValue = {
+	// 笔记本根路径
+	NOTES_DIR,
+	// 笔记本列表
 	notebooks,
+	// 当前显示的笔记列表
 	notes: notesAry,
+	// 当前选中的笔记本名，默认第一个（应该设置一个默认笔记本？）
 	currentNotebook: notebooks[0],
+	// 当前选中的笔记物理路径
 	currentNote,
+	// 当前笔记内容（不一定是选中的笔记，也可能是新建的笔记）
 	noteContent,
 	// 是否正在输入
 	inputting: false
@@ -83,11 +90,12 @@ const notes = (state = initialValue, action)=> {
 			return Object.assign(state, {
 				inputting: false
 			})
-		// 添加笔记
+		// 新增笔记
 		case types.ADD_NOTE:
 			return Object.assign({}, state, {
+				currentNote: '',
 				noteContent: '',
-				inputting: false
+				inputting: true
 			})
 		default:
 			return state
