@@ -1,7 +1,10 @@
 .notes {
+    height: 100%;
+    overflow-y: hidden;
 }
 .notes__notebooks {
-	height: 50%;
+    overflow: auto;
+    box-sizing: border-box;
 }
 .notes__notebook {
 	padding-left: 10px;
@@ -17,7 +20,18 @@
 .notes__notebook--active:hover {
 	background-color: #ccc;
 }
+.notes__line {
+    height: 6px;
+    background-color: #ccc;
+    border: 0;
+    cursor: n-resize;
+}
+.notes__notes {
+    overflow: auto;
+}
 .notes__note {
+    padding-left: 10px;
+    line-height: 28px;
 	cursor: default;
 }
 .notes__note:hover {

@@ -10,6 +10,12 @@ import '../static/styles/Notes.css'
 class Notes extends Component {
 	constructor(props) {
 		super(props)
+
+		this.state = {
+			notebookHieght: `50%`,
+			noteHeight: `calc(50% - 6px)`,
+			startChange: false
+		}
 	}
 
 	render() {
@@ -41,7 +47,7 @@ class Notes extends Component {
 
 		let notes_html = notes.map((note, index) => {
 			return (
-				<li 
+				<li
 					className = "notes__note" 
 					key = {index}
 					onClick = {() => {
@@ -56,10 +62,20 @@ class Notes extends Component {
 		})
 		return (
 			<div className = "notes">
-				<ul className = "notes__notebooks">
+				<ul 
+					className = "notes__notebooks"
+					style = {{height: this.state.notebookHieght}}
+				>
 					{notebooks_html}
 				</ul>
-				<ul className = "notes__notes">
+				<hr 
+					ref = "resizeLine" 
+					className = "notes__line"
+				/>
+				<ul 
+					className = "notes__notes"
+					style = {{height: this.state.noteHeight}}
+				>
 					{notes_html}
 				</ul>
 			</div>

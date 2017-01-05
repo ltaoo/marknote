@@ -74,7 +74,6 @@ class App extends Component {
 
             console.log(res)
         })
-    
     }
 
 
@@ -87,8 +86,8 @@ class App extends Component {
         }
         if(this.state.show) {
             // 如果展示侧边栏
-            mainStyle.transform = `translateX(300px)`
-            mainStyle.WebkitTransform = `translateX(300px)`
+            mainStyle.transform = `translateX(0px)`
+            mainStyle.WebkitTransform = `translateX(0px)`
             mainStyle.overflow = 'hidden'
         } else {
             mainStyle.transform = ''
@@ -99,21 +98,21 @@ class App extends Component {
         return (
             <div className = "container">
                 <Header />
-                <Sidebar
-                    show = {this.state.show}
-                    styles = {{sidebar: {
-                        width: '300px',
-                        backgroundColor: '#fff'
-                    }}}
-                    onSetOpen = {() => {
-                        this.setState({
-                            show: !this.state.show
-                        })
-                    }}
-                >
-                    <Notes />
-                </Sidebar>
                 <div className = "main" style = {mainStyle}>
+                    <Sidebar
+                        show = {this.state.show}
+                        styles = {{sidebar: {
+                            width: '300px',
+                            backgroundColor: '#fff'
+                        }}}
+                        onSetOpen = {() => {
+                            this.setState({
+                                show: !this.state.show
+                            })
+                        }}
+                    >
+                        <Notes />
+                    </Sidebar>
                     <Toolbar 
                         menuClick = {() => {
                             this.setState({
