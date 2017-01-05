@@ -5,7 +5,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router'
 import {connect} from 'react-redux'
-import {remote} from 'electron'
+// 渲染进程通信
+import {ipcRenderer} from 'electron'
 
 import CodeMirror from 'codemirror'
 import 'codemirror/mode/javascript/javascript'
@@ -147,41 +148,7 @@ function saveNote(){
     }
 }
 
-import {ipcRenderer} from 'electron'
+ipcRenderer.on('save-note', (event, message) => {
+    saveNote()
+})
 
-let template = [{
-    label: '文件',
-    submenu: [
-        {
-            label: '保存',
-            accelerator: 'CmdOrCtrl+S',
-            click: function (item, focusedWindow) {
-                saveNote()
-            }
-        }
-    ]
-}, {
-    label: '&View',
-    submenu: [{
-        label: '&Reload',
-        accelerator: 'Ctrl+R',
-        click() {
-            ipcRenderer.send('reload-window')
-        }
-    }, {
-        label: 'Toggle &Full Screen',
-        accelerator: 'F11',
-        click() {
-            win.setFullScreen(!win.isFullScreen());
-        }
-    }, {
-        label: 'Toggle &Developer Tools',
-        accelerator: 'Alt+Ctrl+I',
-        click() {
-            win.toggleDevTools();
-        }
-    }]
-}]
-
-let menu = remote.Menu.buildFromTemplate(template)
-remote.Menu.setApplicationMenu(menu)

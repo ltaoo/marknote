@@ -1,7 +1,11 @@
 .header {
 	display: flex;
-	justify-content: flex-end;
+	flex-direction: row-reverse;
 	padding: 10px;
 	border-bottom: 1px solid #eee;
 	-webkit-app-region: drag;
+}
+
+.header__button--icon {
+	margin-left: 10px;
 }

@@ -7,7 +7,7 @@ function createWindow() {
     // 创建窗口并加载页面
     win = new BrowserWindow({ 
         // 隐藏框架，即顶部的任务栏
-        frame: false,
+        // frame: false,
         width: 1200, 
         height: 600 
     })
@@ -21,6 +21,53 @@ function createWindow() {
         win = null
     })
 }
+// 菜单
+let template = [{
+    label: '文件',
+    submenu: [
+        {
+            label: '保存',
+            accelerator: 'CmdOrCtrl+S',
+            click: function (item, focusedWindow) {
+                // console.log(win.webContents)
+                win.webContents.webContents.send('save-note')
+            }
+        }
+    ]
+}, {
+    label: '&View',
+    submenu: [{
+        label: '&Reload',
+        accelerator: 'Ctrl+R',
+        click() {
+            win.webContents.reload()
+        }
+    }, {
+        label: 'Toggle &Full Screen',
+        accelerator: 'F11',
+        click() {
+            win.setFullScreen(!win.isFullScreen());
+        }
+    }, {
+        label: 'Toggle &Developer Tools',
+        accelerator: 'Alt+Ctrl+I',
+        click() {
+            win.toggleDevTools();
+        }
+    }]
+}, {
+    label: 'Window',
+    submenu: [{
+        label: 'Minimize',
+        accelerator: 'Ctrl+M',
+        selector: 'performMiniaturize:'
+    }]
+}]
+
+let menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
+
+
 function reloadWindow() {
     win.webContents.reload()
 }
@@ -39,7 +86,7 @@ app.on('activate', () => {
     }
 })
 //
-ipcMain.on('close-main-window', () => {
+ipcMain.on('quit-app', () => {
     app.quit()
 })
 
