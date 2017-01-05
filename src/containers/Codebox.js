@@ -40,8 +40,6 @@ let codemirror = null
 class Codebox extends Component {
     constructor(props) {
         super(props)
-
-        this._handleScroller = this._handleScroller.bind(this)
     }
 
     componentDidMount() {
@@ -81,7 +79,7 @@ class Codebox extends Component {
         // })
 
         // 滚动事件
-        this._handleScroller()
+        scroller = document.querySelector('.CodeMirror-scroll')
 
         // 点击笔记事件
         Event.on('chooseNote', (notebook, note) => {
@@ -94,25 +92,22 @@ class Codebox extends Component {
         })    
     }
 
-    _handleScroller() {
+    _handleScroll() {
         const {dispatch, common} = this.props
         // 需要监听滚动条的位置
         // 获取到滚动条节点，保存到变量中
-        scroller = document.querySelector('.CodeMirror-scroll')
         // console.dir(scroller)
-        scroller.onscroll = () => {
-            if(common.current === 'editor') {
-                const clientHeight = scroller.clientHeight
-                const scrollTop = scroller.scrollTop
-                const scrollHeight = scroller.scrollHeight
-                // console.log(clientHeight, scrollTop, scrollHeight)
-                // clientHeight + scrollTop === scrollHeight，客户端高度加上滚动的距离等于内容高度
-                // 当编辑区滚动时，要修改渲染区的 scrollTop
-                const percentage = (scrollTop)/scrollHeight
-                // console.log(percentage)
-                // dispatch(editorScroll(scrollTop))
-                dispatch(editorScroll(percentage))
-            }
+        if(common.current === 'editor') {
+            const clientHeight = scroller.clientHeight
+            const scrollTop = scroller.scrollTop
+            const scrollHeight = scroller.scrollHeight
+            // console.log(clientHeight, scrollTop, scrollHeight)
+            // clientHeight + scrollTop === scrollHeight，客户端高度加上滚动的距离等于内容高度
+            // 当编辑区滚动时，要修改渲染区的 scrollTop
+            const percentage = (scrollTop)/scrollHeight
+            // console.log(percentage)
+            // dispatch(editorScroll(scrollTop))
+            dispatch(editorScroll(percentage))
         }
     }
 
@@ -138,6 +133,7 @@ class Codebox extends Component {
                 ref = "editor"
                 className="editor"
                 onWheel = {this._onWheel.bind(this)}
+                onScroll = {this._handleScroll.bind(this)}
             ></div>
 	    )
   	}
