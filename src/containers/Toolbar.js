@@ -6,12 +6,16 @@ import '../static/styles/Toolbar.css'
 
 export default class Toolbar extends Component {
     render() {
-        const {menuClick} = this.props
+        const {menuClick, addNewFile} = this.props
         return (
             <div className = "toolbar">
                 <Icon 
                     name="bars" 
                     onClick = {menuClick}
+                />
+                <Icon 
+                    name="file-o" 
+                    onClick = {addNewFile}
                 />
                 <Icon name="undo" />
                 <Icon name="repeat" />

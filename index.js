@@ -7,7 +7,7 @@ function createWindow() {
     // 创建窗口并加载页面
     win = new BrowserWindow({ 
         // 隐藏框架，即顶部的任务栏
-        // frame: false,
+        frame: false,
         width: 1200, 
         height: 600 
     })
@@ -26,10 +26,19 @@ let template = [{
     label: '文件',
     submenu: [
         {
+            label: '新建',
+            accelerator: 'CmdOrCtrl+N',
+            click: function (item, focusedWindow) {
+                // console.log(win.webContents)
+                win.webContents.webContents.send('new-note')
+            }
+        },
+        {
             label: '保存',
             accelerator: 'CmdOrCtrl+S',
             click: function (item, focusedWindow) {
                 // console.log(win.webContents)
+                console.log('hello')
                 win.webContents.webContents.send('save-note')
             }
         }

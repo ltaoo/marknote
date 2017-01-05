@@ -76,6 +76,8 @@ class App extends Component {
         })
     
     }
+
+
     render() {
         const {notes} = this.props
         // 根据 show 来处理样式
@@ -117,6 +119,9 @@ class App extends Component {
                             this.setState({
                                 show: !this.state.show
                             })
+                        }}
+                        addNewFile = {() => {
+                            // 添加新文件
                         }}
                     />
                     <div className = "markdown">

@@ -44,7 +44,9 @@ const initialValue = {
 	notes: notesAry,
 	currentNotebook: notebooks[0],
 	currentNote,
-	noteContent
+	noteContent,
+	// 是否正在输入
+	inputting: false
 }
 
 const notes = (state = initialValue, action)=> {
@@ -70,9 +72,22 @@ const notes = (state = initialValue, action)=> {
 			return Object.assign({}, state, {
 				currentNote
 			})
+		// 输入文本
 		case types.INPUT:
 			return Object.assign({}, state, {
-				noteContent: action.value
+				noteContent: action.value,
+				inputting: true
+			})
+		// 保存笔记
+		case types.SAVE_NOTE:
+			return Object.assign(state, {
+				inputting: false
+			})
+		// 添加笔记
+		case types.ADD_NOTE:
+			return Object.assign({}, state, {
+				noteContent: '',
+				inputting: false
 			})
 		default:
 			return state

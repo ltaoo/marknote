@@ -11,3 +11,7 @@
 .CodeMirror {
 	height: 100%;
 }
+
+.CodeMirror-scroll {
+	padding-top: 10px;
+}

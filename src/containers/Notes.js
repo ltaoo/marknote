@@ -29,7 +29,12 @@ class Notes extends Component {
 						dispatch(chooseNotebook(notebook))
 					}}
 				>
-					<Icon name="folder-o" style = {{marginRight: '10px'}} />{notebook}
+					{
+						currentNotebook === notebook
+						? <Icon name="folder-open-o" style = {{marginRight: '10px'}} />
+						: <Icon name="folder-o" style = {{marginRight: '12px'}} />
+					} 
+					{notebook}
 				</li>
 			)
 		})
