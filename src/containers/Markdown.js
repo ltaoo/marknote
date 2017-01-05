@@ -2,6 +2,13 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import marked from 'marked'
+// 配置代码块高亮
+marked.setOptions({
+  	highlight: function (code) {
+    	return require('highlight.js').highlightAuto(code).value
+  	}
+})
+import 'highlight.js/styles/atom-one-light.css'
 
 import {startScroll, previewScroll} from '../actions/index'
 
@@ -39,6 +46,7 @@ class Markdown extends Component {
 	render() {
 		const {editorScroll} = this.props
 		const source = this.props.notes.noteContent
+
 		// console.log(source)
 		const html = `<div class="markdown-body">${marked(source)}</div>`
 		// console.log(html)

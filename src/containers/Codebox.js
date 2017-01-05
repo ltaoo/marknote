@@ -211,6 +211,7 @@ function _saveNote(){
     const {NOTES_DIR, currentNotebook, currentNote, noteContent, inputting} = notes
     // console.log(notes)
     // 判断是否是有修改的保存
+    console.log(inputting)
     if(!inputting) {
         // 没有修改就忽略这一保存动作
         return
@@ -227,12 +228,15 @@ function _saveNote(){
         fs.writeFileSync(newNotePath, noteContent, 'utf8')
         notification.success({
             message: '成功',
-            description: '笔记保存成功'
+            description: '笔记保存成功',
+            duration: 2
         })
+        store.dispatch(saveNote())
     }catch(err) {
         notification.error({
             message: '失败',
-            description: JSON.stringify(err)
+            description: JSON.stringify(err),
+            duration: 2
         })
     }
 }
