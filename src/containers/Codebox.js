@@ -13,6 +13,8 @@ import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/selection/active-line'
 import 'codemirror/addon/edit/matchbrackets'
 import 'codemirror/lib/codemirror.css'
+// 支持 vim 模式
+import 'codemirror/keymap/vim'
 // 编辑器主题
 // import 'codemirror/theme/icecoder.css'
 
@@ -39,6 +41,7 @@ class Codebox extends Component {
             styleActiveLine: true,
             matchBrackets: true,
             mode: 'markdown',
+            keyMap: 'vim',
             // 自动换行
             lineWrapping: true
         })
