@@ -1,0 +1,7 @@
+.header {
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+	-webkit-app-region: drag;
+}

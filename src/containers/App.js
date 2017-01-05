@@ -10,10 +10,11 @@ import {remote} from 'electron'
 import {Modal} from 'antd'
 import 'antd/lib/modal/style/css'
 
+// 容器组件
+import Header from './Header'
 import Toolbar from './Toolbar'
 import Codebox from './Codebox'
 import Markdown from './Markdown'
-
 import Tools from './Tools'
 // 侧边栏
 import Sidebar from './Sidebar'
@@ -95,6 +96,7 @@ class App extends Component {
 
         return (
             <div className = "container">
+                <Header />
                 <Sidebar
                     show = {this.state.show}
                     styles = {{sidebar: {

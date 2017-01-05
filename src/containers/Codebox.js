@@ -147,6 +147,8 @@ function saveNote(){
     }
 }
 
+import {ipcRenderer} from 'electron'
+
 let template = [{
     label: '文件',
     submenu: [
@@ -158,6 +160,27 @@ let template = [{
             }
         }
     ]
+}, {
+    label: '&View',
+    submenu: [{
+        label: '&Reload',
+        accelerator: 'Ctrl+R',
+        click() {
+            ipcRenderer.send('reload-window')
+        }
+    }, {
+        label: 'Toggle &Full Screen',
+        accelerator: 'F11',
+        click() {
+            win.setFullScreen(!win.isFullScreen());
+        }
+    }, {
+        label: 'Toggle &Developer Tools',
+        accelerator: 'Alt+Ctrl+I',
+        click() {
+            win.toggleDevTools();
+        }
+    }]
 }]
 
 let menu = remote.Menu.buildFromTemplate(template)
