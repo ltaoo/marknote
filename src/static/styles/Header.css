@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: row-reverse;
 	padding: 10px;
-	border-bottom: 1px solid #eee;
 	-webkit-app-region: drag;
 }
 

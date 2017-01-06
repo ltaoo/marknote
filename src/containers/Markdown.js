@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import marked from 'marked'
+import {Icon} from 'react-fa'
 // 配置代码块高亮
 marked.setOptions({
   	highlight: function (code) {
@@ -10,7 +11,7 @@ marked.setOptions({
 })
 
 const renderer = new marked.Renderer();
-
+// 代码块增加行号
 renderer.code = function (code, lang, escaped) {
 	// if (this.options.highlight) {
 	// 	// 是否配置了高亮
@@ -47,6 +48,9 @@ import 'highlight.js/styles/atom-one-light.css'
 import {startScroll, previewScroll} from '../actions/index'
 
 import '../static/styles/Markdown.css'
+
+// 通用组件
+import FloatTool from '../components/FloatTool'
 
 class Markdown extends Component {
 	constructor(props) {
@@ -101,9 +105,22 @@ class Markdown extends Component {
 		return (
 			<div
 				className = "preview"
-				dangerouslySetInnerHTML = {{__html: html}}
-				onWheel = {this._onWheel.bind(this)}
-			></div>
+			>
+				<div
+					dangerouslySetInnerHTML = {{__html: html}}
+					onWheel = {this._onWheel.bind(this)}
+				></div>
+				<FloatTool
+					styles = {{right: 30, top: 95}}
+				>
+					<Icon 
+						name = "desktop"
+						onClick = {() => {
+							alert('全屏显示')
+						}}
+					/>
+				</FloatTool>
+			</div>
 		)
 	}
 }

@@ -1,11 +1,16 @@
 .toolbar {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     padding: 15px;
+    padding-left: 30px;
     border-bottom: 1px solid #eee;
+	-webkit-app-region: drag;
 }
 
 .fa {
 	-webkit-app-region: no-drag;
+}
+
+.toolbar__icon {
+	margin-right: 20px;
 }

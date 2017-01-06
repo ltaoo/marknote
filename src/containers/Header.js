@@ -11,21 +11,14 @@ export default class Header extends Component {
 			<div className = "header">
 				<Icon 
 					className = "header__button--icon"
-					name = "window-close-o" 
+					name = "close" 
 					onClick = {() => {
 						ipcRenderer.send('quit-app')
 					}}
 				/>
 				<Icon 
 					className = "header__button--icon"
-					name = "window-maximize" 
-					onClick = {() => {
-						ipcRenderer.send('quit-app')
-					}}
-				/>
-				<Icon 
-					className = "header__button--icon"
-					name = "window-minimize" 
+					name = "minus" 
 					onClick = {() => {
 						ipcRenderer.send('quit-app')
 					}}

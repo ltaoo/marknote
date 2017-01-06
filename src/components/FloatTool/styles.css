@@ -1,0 +1,9 @@
+.floatTool {
+	position: fixed;
+	opacity: .3;
+	cursor: default;
+	border-radius: 5px;
+}
+.floatTool:hover {
+	opacity: 1;
+}
