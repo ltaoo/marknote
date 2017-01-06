@@ -369,6 +369,10 @@
   margin-bottom: 16px;
 }
 
+.markdown-body ol {
+  margin-bottom: 0;
+}
+
 .markdown-body hr {
   height: 0.25em;
   padding: 0;
@@ -585,7 +589,7 @@
 
 .markdown-body .highlight pre,
 .markdown-body pre {
-  padding: 16px;
+  padding: 16px 16px 0 16px;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;

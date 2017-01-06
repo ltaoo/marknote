@@ -132,8 +132,6 @@ class Codebox extends Component {
             <div 
                 ref = "editor"
                 className="editor"
-                onWheel = {this._onWheel.bind(this)}
-                onScroll = {this._handleScroll.bind(this)}
             ></div>
 	    )
   	}
