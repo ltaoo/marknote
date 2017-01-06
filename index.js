@@ -6,16 +6,25 @@ let win
 function createWindow() {
     // 创建窗口并加载页面
     win = new BrowserWindow({ 
+        title: 'Marknote',
         // 隐藏框架，即顶部的任务栏
         frame: false,
+        // 窗口创建时不显示，等待网页加载成功后才显示窗口
+        show: false,
         width: 1200, 
-        height: 600 
+        minWidth: 740,
+        height: 700,
+        minHeight: 700
     })
     win.loadURL(`file://${__dirname}/index.html`)
     // win.loadURL(`http://127.0.0.1:8080/#/`)
 
     // 打开窗口的调试工具
     win.webContents.openDevTools()
+    win.on('ready-to-show', function() {
+       win.show()
+       win.focus()
+    })
     // 窗口关闭的监听
     win.on('closed', () => {
         win = null

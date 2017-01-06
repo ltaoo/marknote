@@ -215,11 +215,26 @@ function _saveNote(){
     // 判断是否是新建笔记
     // console.log(currentNote)
     let newNotePath = currentNote
+
+    const newTitle = document.querySelector('h1').innerHTML + '.md'
     if(!currentNote) {
         // 如果没有笔记的物理路径，就认为是新建笔记保存，首先要获取到笔记名，拿 h1 标签
-        let title = document.querySelector('h1').innerHTML + '.md'
-        newNotePath = path.join(NOTES_DIR, currentNotebook, title)
+        newNotePath = path.join(NOTES_DIR, currentNotebook, newTitle)
+    } else {
+        // 如果有笔记物理路径，但是更改了笔记名，也就是文件名的处理
+        const oldTitle = path.basename(currentNote)
+        if(oldTitle !== newTitle) {
+            newNotePath = path.join(NOTES_DIR, currentNotebook, newTitle)
+            // 修改了文件名
+            console.log('先修改笔记名')
+            try {
+                fs.renameSync(currentNote, newNotePath)
+            }catch(err) {
+                console.log(err)
+            }
+        }
     }
+
     try {
         fs.writeFileSync(newNotePath, noteContent, 'utf8')
         notification.success({
@@ -227,7 +242,7 @@ function _saveNote(){
             description: '笔记保存成功',
             duration: 2
         })
-        store.dispatch(saveNote())
+        store.dispatch(saveNote(newNotePath))
     }catch(err) {
         notification.error({
             message: '失败',

@@ -47,6 +47,7 @@ export function scanNotes(value) {
 // 选择笔记本
 export const CHOOSE_NOTEBOOK = 'CHOOSE_NOTEBOOK'
 export function chooseNotebook(value) {
+	localStorage.setItem('currentNotebook', value)
 	return {
 		type: CHOOSE_NOTEBOOK,
 		value
@@ -64,9 +65,10 @@ export function chooseNote(value) {
 
 // 保存笔记
 export const SAVE_NOTE = 'SAVE_NOTE'
-export function saveNote() {
+export function saveNote(value) {
 	return {
-		type: SAVE_NOTE
+		type: SAVE_NOTE,
+		value
 	}
 }
 

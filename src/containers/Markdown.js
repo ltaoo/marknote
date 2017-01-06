@@ -26,6 +26,12 @@ class Markdown extends Component {
 		}
 	}
 
+	showComponentUpdate(nextProps, nextState) {
+		// const {editorScroll} = this.props
+		// console.log(nextProps)
+		return !(this.props === nextProps || is(this.props, nextProps)) || !(this.state === nextState || is(this.state, nextState))
+	}
+
 	_onScroll() {
 		const {dispatch, common} = this.props
 		// 要区分是主动滚动还是被动滚动
@@ -44,7 +50,7 @@ class Markdown extends Component {
 	}
 
 	render() {
-		const {editorScroll} = this.props
+		// const {editorScroll} = this.props
 		const source = this.props.notes.noteContent
 
 		// console.log(source)
@@ -53,10 +59,10 @@ class Markdown extends Component {
 		// 改变滚动条位置
 		// const clientHeight = this.preview.clientHeight
   		// const scrollTop = this.preview.scrollTop
-        if(this.preview) {
-	        const scrollHeight = this.preview.scrollHeight
-        	this.preview.scrollTop = editorScroll.previewTop*scrollHeight
-        }
+        // if(this.preview) {
+	       //  const scrollHeight = this.preview.scrollHeight
+        // 	this.preview.scrollTop = editorScroll.previewTop*scrollHeight
+        // }
 		// !!this.preview && (this.preview.scrollTop = editorScroll.previewTop*scrollHeight)
 		return (
 			<div
@@ -69,10 +75,10 @@ class Markdown extends Component {
 }
 
 export default connect((state)=> {
-	const {notes, editorScroll, common} = state;
+	const {notes, common} = state;
 	return {
 		notes,
-		editorScroll,
+		// editorScroll,
 		common
 	}
 })(Markdown)

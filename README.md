@@ -27,6 +27,5 @@ npm run dev
 - 实现多标签页功能
 - html 代码块显示行号
 - 设置主题
-
-
+- 导出 pdf 文档
 - 优化 reducer 和 container
