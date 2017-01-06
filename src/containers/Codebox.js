@@ -11,14 +11,23 @@ import {Modal, notification} from 'antd'
 import 'antd/lib/notification/style/css'
 
 import CodeMirror from 'codemirror'
-import 'codemirror/mode/javascript/javascript'
+// 模式
+import 'codemirror/mode/markdown/markdown'
+import 'codemirror/mode/xml/xml'
+// 显示行后面的空白
+import 'codemirror/addon/edit/trailingspace'
+// 显示当前行
 import 'codemirror/addon/selection/active-line'
+// 匹配括号
 import 'codemirror/addon/edit/matchbrackets'
+// 自动补全括号
+import 'codemirror/addon/edit/closebrackets'
+// 编辑器样式
 import 'codemirror/lib/codemirror.css'
-// 支持 vim 模式
+// 支持 vim 输入
 import 'codemirror/keymap/vim'
 // 编辑器主题
-// import 'codemirror/theme/icecoder.css'
+import 'codemirror/theme/eclipse.css'
 
 import {
     input, 
@@ -45,22 +54,30 @@ class Codebox extends Component {
     componentDidMount() {
         const {dispatch, common} = this.props
         // 初始化 codemirror 编辑器
-        const code = ReactDOM.findDOMNode(this)
+        // const code = ReactDOM.findDOMNode(this)
+        var code = document.querySelector('.editor')
         // const code = this.refs.editor
         // 生成 codemirror 编辑器并保存到变量
         codemirror = CodeMirror(code, {
             // value: "// open a javascript file..",
+            mode: 'markdown',
+            // 主题
+            theme: 'eclipse',
             // 显示行号
             lineNumbers: true,
             // 当前行高亮
             styleActiveLine: true,
-            matchBrackets: true,
-            // 主题
-            mode: 'markdown',
             // 使用 vim 模式
             keyMap: 'vim',
             // 自动换行
-            lineWrapping: true
+            lineWrapping: true,
+            // 自动补全括号
+            autoCloseBrackets: true,
+            // 显示行后面的空白
+            showTrailingSpace: true,
+            tabSize: 4,
+            indentUnit: 4,
+            indentWithTabs: true
         })
 
         // 默认内容
