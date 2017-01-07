@@ -86,6 +86,11 @@ const notes = (state = initialValue, action)=> {
 				noteContent: action.value,
 				inputting: true
 			})
+		// 停止输入
+		case types.STOP:
+			return Object.assign({}, state, {
+				inputting: false
+			})
 		// 保存笔记
 		case types.SAVE_NOTE:
 			return Object.assign(state, {

@@ -8,6 +8,13 @@ export function input(value) {
 		value
 	}
 }
+// 停止输入
+export const STOP = 'STOP'
+export function stop() {
+	return {
+		type: STOP
+	}
+}
 // 开始滚动，用以获取当前是编辑区滚动还是预览区滚动
 export const START_SCROLL = 'START_SCROLL'
 export function startScroll(value) {

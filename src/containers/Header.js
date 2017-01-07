@@ -23,7 +23,6 @@ export default class Header extends Component {
 						ipcRenderer.send('quit-app')
 					}}
 				/>
-
 			</div>
 		)
 	}

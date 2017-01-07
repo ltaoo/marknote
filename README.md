@@ -29,3 +29,8 @@ npm run dev
 - 设置主题
 - 导出 pdf 文档
 - 优化 reducer 和 container
+
+## 问题
+- vim 模式无法正常复制文本
+- 编辑区没有右键
+- 保存文件依赖预览区的 h1 标签

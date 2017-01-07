@@ -34,7 +34,9 @@ import {
     startScroll, 
     editorScroll, 
     addNewNote,
-    saveNote
+    saveNote,
+    // 停止输入
+    stop
 } from '../actions/index'
 import '../static/styles/Codebox.css'
 
@@ -52,7 +54,7 @@ class Codebox extends Component {
     }
 
     componentDidMount() {
-        const {dispatch, common} = this.props
+        const {dispatch, common, notes} = this.props
         // 初始化 codemirror 编辑器
         // const code = ReactDOM.findDOMNode(this)
         var code = document.querySelector('.editor')
@@ -62,7 +64,7 @@ class Codebox extends Component {
             // value: "// open a javascript file..",
             mode: 'markdown',
             // 主题
-            theme: 'eclipse',
+            // theme: 'eclipse',
             // 显示行号
             lineNumbers: true,
             // 当前行高亮
@@ -85,8 +87,10 @@ class Codebox extends Component {
         if(localNote) {
             codemirror.setValue(localNote)
         }
+        // 
+        this._handleStop()
         // 监听输入事件
-        codemirror.on('change', (target, source) => {
+        codemirror.on('changes', (target, source) => {
             dispatch(input(codemirror.getValue()))
         })
         // 可以用来显示当前光标位置
@@ -107,6 +111,16 @@ class Codebox extends Component {
                 codemirror.setValue(content)
             }
         })    
+    }
+
+    _handleStop() {
+        const {notes} = this.props
+        this.timer = setInterval(() => {
+            if(notes.inputting) {
+                console.log('监听输入')
+                dispatch(stop())
+            }
+        }, 1000)
     }
 
     _handleScroll() {

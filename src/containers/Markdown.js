@@ -28,7 +28,7 @@ renderer.code = function (code, lang, escaped) {
 		result += `<li>${this.options.highlight(line, lang)}</li>`
 	})
 
-	// 如果没有 language，就直接返回
+	// 如果没有 language，就直接返回中文
 	if (!lang) {
 	    return '<pre><code><ol>'
 	      	+ result
@@ -58,16 +58,20 @@ class Markdown extends Component {
 	}
 
 	componentDidMount() {
+		const {notes} = this.props
 		this.preview = ReactDOM.findDOMNode(this)
 		this.preview.onscroll = (event) => {
 			this._onScroll();
 		}
 	}
 
-	showComponentUpdate(nextProps, nextState) {
-		// const {editorScroll} = this.props
-		// console.log(nextProps)
-		return !(this.props === nextProps || is(this.props, nextProps)) || !(this.state === nextState || is(this.state, nextState))
+	shouldComponentUpdate(nextProps, nextState) {
+		// 如果正在输入，就不更新
+		if(nextProps.notes.inputting) {
+			return false
+		} else {
+			return true
+		}
 	}
 
 	_onScroll() {
@@ -88,11 +92,13 @@ class Markdown extends Component {
 	}
 
 	render() {
-		// const {editorScroll} = this.props
-		const source = this.props.notes.noteContent
+		const {notes} = this.props
+		const {noteContent, inputting} = notes
 
 		// console.log(source)
-		const html = `<div class="markdown-body">${marked(source, {renderer})}</div>`
+		// if(!inputting) {
+		const html = `<div class="markdown-body">${marked(noteContent, {renderer})}</div>`
+		// }
 		// console.log(html)
 		// 改变滚动条位置
 		// const clientHeight = this.preview.clientHeight
