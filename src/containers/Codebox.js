@@ -90,12 +90,8 @@ class Codebox extends Component {
         if(localNote) {
             codemirror.setValue(localNote)
         }
-        // 
-        this._handleStop()
         // 监听输入事件
         codemirror.on('changes', (target, source) => {
-            isTyping = true
-            hasDispatch = false
             dispatch(input(codemirror.getValue()))
         })
         // 可以用来显示当前光标位置
@@ -116,21 +112,6 @@ class Codebox extends Component {
                 codemirror.setValue(content)
             }
         })    
-    }
-
-    _handleStop() {
-        const {dispatch, notes} = this.props
-        this.timer = setInterval(() => {
-            if(!isTyping) {
-                // 如果没有正在输入
-                if(!hasDispatch) {
-                    // 且没有 dispatch 过，就可以 dispacth
-                    dispatch(stop(isTyping))
-                    hasDispatch = true
-                }
-            }
-            isTyping = false
-        }, 1000)
     }
 
     _handleScroll() {

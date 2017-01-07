@@ -5,7 +5,8 @@
 - electron
 - react 
 - react-redux
-- marked
+- ~~marked~~
+- markdown-it
 - codemirror
 
 ## 使用

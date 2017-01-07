@@ -43,6 +43,14 @@ renderer.code = function (code, lang, escaped) {
 	    + '\n</ol></code></pre>\n'; 
 }
 
+var showdown  = require('showdown'),
+    converter = new showdown.Converter({
+    	simpleLineBreaks: true,
+    	tasklists: true,
+    })
+var MarkdownIt = require('markdown-it'),
+    md = new MarkdownIt();
+
 import 'highlight.js/styles/atom-one-light.css'
 
 import {startScroll, previewScroll} from '../actions/index'
@@ -62,15 +70,6 @@ class Markdown extends Component {
 		this.preview = ReactDOM.findDOMNode(this)
 		this.preview.onscroll = (event) => {
 			this._onScroll();
-		}
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		// 如果正在输入，就不更新
-		if(nextProps.notes.inputting) {
-			return false
-		} else {
-			return true
 		}
 	}
 
@@ -94,11 +93,8 @@ class Markdown extends Component {
 	render() {
 		const {notes} = this.props
 		const {noteContent, inputting} = notes
-
 		// console.log(source)
-		// if(!inputting) {
-		const html = `<div class="markdown-body">${marked(noteContent, {renderer})}</div>`
-		// }
+		const html = `<div class="markdown-body">${md.render(noteContent)}</div>`
 		// console.log(html)
 		// 改变滚动条位置
 		// const clientHeight = this.preview.clientHeight
