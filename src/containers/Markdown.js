@@ -1,55 +1,30 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
-import marked from 'marked'
 import {Icon} from 'react-fa'
-// 配置代码块高亮
-marked.setOptions({
-  	highlight: function (code) {
-    	return require('highlight.js').highlightAuto(code).value
-  	}
-})
-
-const renderer = new marked.Renderer();
-// 代码块增加行号
-renderer.code = function (code, lang, escaped) {
-	// if (this.options.highlight) {
-	// 	// 是否配置了高亮
-	//     var out = this.options.highlight(code, lang);
-	//     if (out != null && out !== code) {
-	//       	escaped = true;
-	//       	code = out;
-	//     }
-	// }
-	// code 根据 \n 分割
-	let lines = code.split('\n')
-	let result = ''
-	lines.forEach(line => {
-		result += `<li>${this.options.highlight(line, lang)}</li>`
-	})
-
-	// 如果没有 language，就直接返回中文
-	if (!lang) {
-	    return '<pre><code><ol>'
-	      	+ result
-	      	+ '\n</ol></code></pre>';
+import hljs from 'highlight.js'
+import MarkdownIt from 'markdown-it'
+const md = new MarkdownIt({
+	// \n 转换成 br
+	breaks: true,
+	// 代码块高亮
+	highlight: function (str, lang) {
+		// console.log(str, lang)
+		let lines = str.split('\n')
+		// console.log(lines)
+		let result = ''
+		lines.forEach(line => {
+			result += `<li>${hljs.highlight(lang, line, true).value}</li>`
+		})
+	    if (lang && hljs.getLanguage(lang)) {
+	      	try {
+	        	return `<pre class="hljs"><code><ol>${result}</ol></code></pre>`
+	      	} catch (__) {}
+	    }
+	    // return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`
+	    return `<pre class="hljs"><code><ol>${result}</ol></code></pre>`
 	}
-
-	return '<pre><code><ol class="'
-	    + this.options.langPrefix
-	    + escape(lang, true)
-	    + '">'
-	    + result
-	    + '\n</ol></code></pre>\n'; 
-}
-
-var showdown  = require('showdown'),
-    converter = new showdown.Converter({
-    	simpleLineBreaks: true,
-    	tasklists: true,
-    })
-var MarkdownIt = require('markdown-it'),
-    md = new MarkdownIt();
+})
 
 import 'highlight.js/styles/atom-one-light.css'
 
