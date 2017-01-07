@@ -48,6 +48,9 @@ import store from '../store'
 let scroller = null
 let codemirror = null
 
+let isTyping = false
+let hasDispatch = false
+
 class Codebox extends Component {
     constructor(props) {
         super(props)
@@ -91,6 +94,8 @@ class Codebox extends Component {
         this._handleStop()
         // 监听输入事件
         codemirror.on('changes', (target, source) => {
+            isTyping = true
+            hasDispatch = false
             dispatch(input(codemirror.getValue()))
         })
         // 可以用来显示当前光标位置
@@ -114,12 +119,17 @@ class Codebox extends Component {
     }
 
     _handleStop() {
-        const {notes} = this.props
+        const {dispatch, notes} = this.props
         this.timer = setInterval(() => {
-            if(notes.inputting) {
-                console.log('监听输入')
-                dispatch(stop())
+            if(!isTyping) {
+                // 如果没有正在输入
+                if(!hasDispatch) {
+                    // 且没有 dispatch 过，就可以 dispacth
+                    dispatch(stop(isTyping))
+                    hasDispatch = true
+                }
             }
+            isTyping = false
         }, 1000)
     }
 

@@ -10,9 +10,10 @@ export function input(value) {
 }
 // 停止输入
 export const STOP = 'STOP'
-export function stop() {
+export function stop(value) {
 	return {
-		type: STOP
+		type: STOP,
+		value
 	}
 }
 // 开始滚动，用以获取当前是编辑区滚动还是预览区滚动
