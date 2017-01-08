@@ -1,9 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Icon} from 'react-fa'
+// 文件树
+import Tree from 'react-ui-tree'
+import '../components/Tree/tree.css'
 
 import {chooseNotebook, chooseNote} from '../actions/index'
 import Event from '../utils/Event'
+import scan from '../utils/filetree'
 
 import '../static/styles/Notes.css'
 
@@ -14,8 +18,26 @@ class Notes extends Component {
 		this.state = {
 			notebookHieght: `50%`,
 			noteHeight: `calc(50% - 6px)`,
-			startChange: false
+			startChange: false,
+			tree: {}
 		}
+	}
+
+	componentDidMount() {
+		// 拿到一个目录
+		const rootdir = localStorage.getItem('notedir')
+		let tree = scan(rootdir)
+		this.setState({
+			tree
+		})
+	}
+
+	_renderNode(node) {
+	    return (
+	      	<span>
+	        	{node.module}
+	      	</span>
+	    )
 	}
 
 	render() {
@@ -62,22 +84,11 @@ class Notes extends Component {
 		})
 		return (
 			<div className = "notes">
-				<ul 
-					className = "notes__notebooks"
-					style = {{height: this.state.notebookHieght}}
-				>
-					{notebooks_html}
-				</ul>
-				<hr 
-					ref = "resizeLine" 
-					className = "notes__line"
+				<Tree
+				  	paddingLeft={20}              // left padding for children nodes in pixels
+				  	tree={this.state.tree}        // tree object
+				  	renderNode={this._renderNode}  // renderNode(node) return react element
 				/>
-				<ul 
-					className = "notes__notes"
-					style = {{height: this.state.noteHeight}}
-				>
-					{notes_html}
-				</ul>
 			</div>
 		)
 	}

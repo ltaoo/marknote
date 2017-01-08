@@ -38,6 +38,7 @@
     "electron": "^1.4.13",
     "file-loader": "^0.9.0",
     "highlight.js": "^9.9.0",
+    "js-tree": "^1.1.0",
     "json-loader": "^0.5.4",
     "markdown-it": "^8.2.2",
     "rc-dialog": "^6.5.5",
@@ -47,6 +48,7 @@
     "react-fa": "^4.1.2",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
+    "react-ui-tree": "^2.6.0",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "url-loader": "^0.5.7"

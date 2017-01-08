@@ -148,7 +148,7 @@ class Codebox extends Component {
 
   	render() {
   		const {previewScroll, notes} = this.props
-        !!scroller && (scroller.scrollTop = previewScroll.editorTop)
+        // !!scroller && (scroller.scrollTop = previewScroll.editorTop)
         //
 	    return (
             <div 

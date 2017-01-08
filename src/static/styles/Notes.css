@@ -1,6 +1,6 @@
 .notes {
+    padding-left: 20px;
     height: 100%;
-    overflow-y: hidden;
 }
 .notes__notebooks {
     overflow: auto;
