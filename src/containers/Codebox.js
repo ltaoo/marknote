@@ -107,7 +107,7 @@ class Codebox extends Component {
         Event.on('chooseNote', (notebook, note) => {
             let rootdir = localStorage.getItem('notedir')
             if(rootdir) {
-                let content = fs.readFileSync(path.join(rootdir, notebook, note), 'utf8')
+                let content = fs.readFileSync(path.join(notebook, note), 'utf8')
                 localStorage.setItem('note', content)
                 codemirror.setValue(content)
             }

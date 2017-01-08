@@ -9,11 +9,11 @@ const defaultStyles = {
   // 侧边栏
   sidebar: {
     zIndex: 1001,
-    position: 'absolute',
+    // position: 'absolute',
     top: 0,
     bottom: 0,
-    transition: 'transform .3s ease-out',
-    WebkitTransition: '-webkit-transform .3s ease-out',
+    transition: '.3s ease-out',
+    WebkitTransition: '.3s ease-out',
     willChange: 'transform',
     overflowY: 'auto'
   },
@@ -74,15 +74,15 @@ export default class Sidebar extends Component {
     // 侧边栏在左侧还是右侧
     if (this.props.pullRight) {
       sidebarStyle.right = 0;
-      sidebarStyle.transform = 'translateX(100%)';
-      sidebarStyle.WebkitTransform = 'translateX(100%)';
+      // sidebarStyle.transform = 'translateX(100%)';
+      // sidebarStyle.WebkitTransform = 'translateX(100%)';
       if (this.props.shadow) {
         sidebarStyle.boxShadow = '-2px 2px 4px rgba(0, 0, 0, 0.15)';
       }
     } else {
       sidebarStyle.left = 0;
-      sidebarStyle.transform = 'translateX(-100%)';
-      sidebarStyle.WebkitTransform = 'translateX(-100%)';
+      // sidebarStyle.transform = 'translateX(-100%)';
+      // sidebarStyle.WebkitTransform = 'translateX(-100%)';
       if (this.props.shadow) {
         sidebarStyle.boxShadow = '2px 2px 4px rgba(0, 0, 0, 0.15)';
       }
@@ -92,31 +92,24 @@ export default class Sidebar extends Component {
     const {show} = this.props
     if(show) {
       // 如果显示
-      sidebarStyle.transform = ''
-      sidebarStyle.WebkitTransform = ''
+      // sidebarStyle.transform = ''
+      // sidebarStyle.WebkitTransform = ''
+      sidebarStyle.width = 400
       overlayStyle.opacity = 1
       overlayStyle.visibility = 'visible'
     } else {
-      sidebarStyle.transform = 'translateX(-100%)';
-      sidebarStyle.WebkitTransform = 'translateX(-100%)';
+      sidebarStyle.width = 0
+      // sidebarStyle.transform = 'translateX(-100%)';
+      // sidebarStyle.WebkitTransform = 'translateX(-100%)';
       overlayStyle.opacity = 0
       overlayStyle.visibility = 'hidden'
     }
 
     return (
-      <div {...rootProps}>
-        <div className= "sidebar" style={sidebarStyle} ref="sidebar">
-          {this.props.children}
-        </div>
-        <div 
-          className= "sidebar__overlay"
-          style={overlayStyle}
-          role="presentation"
-          tabIndex="0"
-          onClick={this.overlayClicked}
-        />
+      <div className= "sidebar" style={sidebarStyle} ref="sidebar">
+        {this.props.children}
       </div>
-    );
+    )
   }
 }
 

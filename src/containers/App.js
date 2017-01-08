@@ -68,12 +68,6 @@ class App extends Component {
             localStorage.setItem('notedir', fileList[0].path)
             notedir = fileList[0].path
         })
-
-        fs.readdir(notedir, (err, res) => {
-            if(err) console.log(err)
-
-            console.log(res)
-        })
     }
 
 
@@ -81,16 +75,16 @@ class App extends Component {
         const {notes} = this.props
         // 根据 show 来处理样式
         let mainStyle = {
-            transition: 'transform .3s ease-out',
+            WebkitTransition: '-webkit-transform .3s ease-out'
+        }
+        let markdownStyle = {
             WebkitTransition: '-webkit-transform .3s ease-out'
         }
         if(this.state.show) {
             // 如果展示侧边栏
-            mainStyle.transform = `translateX(0px)`
             mainStyle.WebkitTransform = `translateX(0px)`
             mainStyle.overflow = 'hidden'
         } else {
-            mainStyle.transform = ''
             mainStyle.WebkitTransform = ''
             mainStyle.overflow = 'auto'
         }
@@ -99,20 +93,6 @@ class App extends Component {
             <div className = "container">
                 <Header />
                 <div className = "main" style = {mainStyle}>
-                    <Sidebar
-                        show = {this.state.show}
-                        styles = {{sidebar: {
-                            width: '300px',
-                            backgroundColor: '#fff'
-                        }}}
-                        onSetOpen = {() => {
-                            this.setState({
-                                show: !this.state.show
-                            })
-                        }}
-                    >
-                        <Notes />
-                    </Sidebar>
                     <Toolbar 
                         menuClick = {() => {
                             this.setState({
@@ -123,7 +103,21 @@ class App extends Component {
                             // 添加新文件
                         }}
                     />
-                    <div className = "markdown">
+                    <div className = "markdown" style = {markdownStyle}>
+                        <Sidebar
+                            show = {this.state.show}
+                            styles = {{sidebar: {
+                                width: '300px',
+                                backgroundColor: '#fff'
+                            }}}
+                            onSetOpen = {() => {
+                                this.setState({
+                                    show: !this.state.show
+                                })
+                            }}
+                        >
+                            <Notes />
+                        </Sidebar>
                         <Codebox />
                         <Markdown />
                     </div>

@@ -19,8 +19,11 @@ class Notes extends Component {
 			notebookHieght: `50%`,
 			noteHeight: `calc(50% - 6px)`,
 			startChange: false,
+			active: null,
 			tree: {}
 		}
+		this._renderNode = this._renderNode.bind(this)
+		this._chooseNote = this._chooseNote.bind(this)
 	}
 
 	componentDidMount() {
@@ -32,9 +35,46 @@ class Notes extends Component {
 		})
 	}
 
+	_chooseNote(note, currentNotebook) {
+		const {dispatch} = this.props
+		dispatch(chooseNote(note))
+		Event.emit('chooseNote', currentNotebook, note)
+	}
+
 	_renderNode(node) {
+		if(node.leaf) {
+			// 如果是文件
+			return (
+				<span
+					className = {node === this.state.active && 'is-active'}
+					style = {{whiteSpace: 'nowrap'}}
+					onClick = {() => {
+						// alert('hello')
+						// 选中笔记
+						this._chooseNote(node.module, node.parent)
+						this.setState({
+							active: node
+						})
+					}}
+				>
+				<Icon name="file-code-o" style = {{marginRight: '10px'}} />
+			  	{node.module}
+				</span>
+			)
+		}
 	    return (
-	      	<span>
+	      	<span
+	      		onClick = {() => {
+	      			// alert('hello')
+	      			// 选中笔记
+	      			// this._chooseNote(node.module, node.parent)
+	      		}}
+	      	>
+				{
+					node.collapsed 
+					? <Icon name="folder-o" style = {{marginLeft: 10, marginRight: '12px'}} />
+					: <Icon name="folder-open-o" style = {{marginLeft: 10, marginRight: '10px'}} />
+				}
 	        	{node.module}
 	      	</span>
 	    )

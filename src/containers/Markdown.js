@@ -13,16 +13,20 @@ const md = new MarkdownIt({
 		let lines = str.split('\n')
 		// console.log(lines)
 		let result = ''
-		lines.forEach(line => {
-			result += `<li>${hljs.highlight(lang, line, true).value}</li>`
-		})
+		const len = lines.length
 	    if (lang && hljs.getLanguage(lang)) {
+			lines.forEach((line, index) => {
+				// 因为设置了 \n -> br 所以这里要处理下多出的一行
+				if(index !== len-1) {
+					result += `<li>${hljs.highlight(lang, line, true).value}</li>`
+				}
+			})
 	      	try {
 	        	return `<pre class="hljs"><code><ol>${result}</ol></code></pre>`
 	      	} catch (__) {}
 	    }
 	    // return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`
-	    return `<pre class="hljs"><code><ol>${result}</ol></code></pre>`
+	    return `<pre class="hljs"><code><ol>${str}</ol></code></pre>`
 	}
 })
 
@@ -88,7 +92,7 @@ class Markdown extends Component {
 					onWheel = {this._onWheel.bind(this)}
 				></div>
 				<FloatTool
-					styles = {{right: 30, top: 95}}
+					styles = {{right: 30, top: 80}}
 				>
 					<Icon 
 						name = "desktop"

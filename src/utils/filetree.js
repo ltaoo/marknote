@@ -69,7 +69,8 @@ function scan(folder) {
             if(isFile) {
                 result.children.push({
                     module: file,
-                    leaf: stats.isFile()
+                    leaf: stats.isFile(),
+                    parent: folder
                 })
             } else {
                 result.children.push(scan(path.join(folder, file)))
